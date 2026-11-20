@@ -54,29 +54,51 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 #summaryStats .stat b { color: #6b4226; font-size: 16px; }
 #summaryStats .dead b { color: #c62828; }
 
-.clients-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px; }
+.clients-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 10px; }
 .clients-header h2 { margin: 0; }
 .export-btn { background: #2d8e47; color: #fff; border: none; padding: 11px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
 .export-btn:hover { background: #247239; }
 
+.clients-toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; background: #fff; padding: 12px 14px; border-radius: 10px; box-shadow: 0 2px 8px rgba(107,66,38,.06); }
+.search-input { flex: 1; min-width: 220px; padding: 10px 14px; border: 1px solid #d0c8c0; border-radius: 8px; font-size: 14px; background: #fdfbf9; }
+.search-input:focus { outline: none; border-color: #6b4226; background: #fff; }
+.clear-filters-btn { background: #ede4da; color: #52321c; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; }
+.clear-filters-btn:hover { background: #dfd1c2; }
+.result-count { font-size: 13px; color: #6b5d52; font-weight: 600; }
+
 .table-wrap { overflow-x: auto; background: #fff; border-radius: 12px; padding: 6px; box-shadow: 0 2px 14px rgba(107,66,38,.08); }
 #clientsTable { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 1550px; }
 #clientsTable th, #clientsTable td { padding: 11px 10px; border-bottom: 1px solid #ede4da; text-align: left; white-space: nowrap; }
-#clientsTable th { background: #f3ece4; font-weight: 700; color: #52321c; position: sticky; top: 0; }
+#clientsTable th { background: #f3ece4; font-weight: 700; color: #52321c; position: sticky; top: 0; user-select: none; }
 #clientsTable tbody tr:hover { background: #faf6f1; }
 #clientsTable td.overdue { background: #fdecea; color: #b71c1c; font-weight: 700; }
 #clientsTable tr.approved-row { background: #e8f5e9; }
 #clientsTable tr.approved-row:hover { background: #d7ecdb; }
 
+.th-inner { display: flex; align-items: center; gap: 6px; position: relative; }
+.filter-btn { background: none; border: 1px solid #c8bfb5; color: #6b4226; padding: 2px 7px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 700; line-height: 1; }
+.filter-btn:hover { background: #ede4da; }
+.filter-btn.active { background: #6b4226; color: #fff; border-color: #6b4226; }
+
+.filter-popup { position: absolute; top: 100%; left: 0; z-index: 200; background: #fff; border: 1px solid #d0c8c0; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.15); min-width: 240px; max-height: 320px; overflow: auto; padding: 8px 0; display: none; }
+.filter-popup.open { display: block; }
+.filter-popup .fp-search { width: calc(100% - 16px); margin: 0 8px 8px; padding: 6px 10px; border: 1px solid #d0c8c0; border-radius: 6px; font-size: 12px; }
+.filter-popup .fp-search:focus { outline: none; border-color: #6b4226; }
+.filter-popup label { display: flex; align-items: center; gap: 8px; padding: 5px 12px; font-size: 13px; cursor: pointer; font-weight: 400; color: #2b2320; }
+.filter-popup label:hover { background: #faf6f1; }
+.filter-popup label input { margin: 0; }
+.filter-popup .fp-actions { display: flex; justify-content: space-between; padding: 8px 12px; border-top: 1px solid #ede4da; margin-top: 4px; }
+.filter-popup .fp-actions button { background: none; border: none; color: #1a73e8; cursor: pointer; font-weight: 700; font-size: 12px; }
+
 #clientsTable .action-cell { white-space: nowrap; display: flex; gap: 4px; align-items: center; }
 #clientsTable .action-cell button { padding: 6px 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
 #clientsTable .action-cell button:hover { filter: brightness(1.1); }
-.edit-btn    { background: #d4a548; color: #fff; }
-.delete-btn  { background: #c62828; color: #fff; }
-.wa-btn      { background: #25d366; color: #fff; }
-.email-btn   { background: #1a73e8; color: #fff; }
+.edit-btn { background: #d4a548; color: #fff; }
+.delete-btn { background: #c62828; color: #fff; }
+.wa-btn { background: #25d366; color: #fff; }
+.email-btn { background: #1a73e8; color: #fff; }
 .approve-btn { background: #2d8e47; color: #fff; }
-.copy-btn    { background: #6f42c1; color: #fff; }
+.copy-btn { background: #6f42c1; color: #fff; }
 .approved-label { display: inline-block; background: #a5d6a7; color: #1b5e20; padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; border: 1px solid #81c784; }
 .empty-row { text-align: center; color: #999; padding: 30px !important; font-style: italic; }
 
@@ -90,29 +112,17 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 .client-form button[type=submit]:hover { background: #52321c; }
 .client-form button.secondary { background: #ede4da; color: #52321c; border: none; padding: 12px 26px; border-radius: 7px; cursor: pointer; font-weight: 700; font-size: 14px; }
 
-/* Manage Stages */
 .stage-mgmt-toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
 .stage-mgmt-toolbar input { flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid #d0c8c0; border-radius: 8px; font-size: 14px; background: #fff; }
 .add-stage-btn { background: #2d8e47; color: #fff; border: none; padding: 11px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px; }
 .add-stage-btn:hover { background: #247239; }
-
 #stageManageTable { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 14px rgba(107,66,38,.08); }
 #stageManageTable th { background: #f3ece4; color: #52321c; padding: 12px 10px; text-align: left; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; font-weight: 700; }
 #stageManageTable td { padding: 8px 10px; border-bottom: 1px solid #ede4da; vertical-align: top; }
 #stageManageTable tr:hover { background: #faf6f1; }
-#stageManageTable input[type=text], #stageManageTable select {
-  width: 100%; padding: 8px 10px; border: 1px solid #d0c8c0;
-  border-radius: 6px; font-size: 13px; background: #fdfbf9;
-}
-#stageManageTable textarea {
-  width: 100%; padding: 8px 10px; border: 1px solid #d0c8c0;
-  border-radius: 6px; font-size: 12px; background: #fdfbf9;
-  font-family: 'Courier New', monospace; line-height: 1.45;
-  min-height: 110px;
-}
-#stageManageTable input[type=text]:focus, #stageManageTable select:focus, #stageManageTable textarea:focus {
-  outline: none; border-color: #6b4226; background: #fff;
-}
+#stageManageTable input[type=text], #stageManageTable select { width: 100%; padding: 8px 10px; border: 1px solid #d0c8c0; border-radius: 6px; font-size: 13px; background: #fdfbf9; }
+#stageManageTable textarea { width: 100%; padding: 8px 10px; border: 1px solid #d0c8c0; border-radius: 6px; font-size: 12px; background: #fdfbf9; font-family: 'Courier New', monospace; line-height: 1.45; min-height: 110px; }
+#stageManageTable input[type=text]:focus, #stageManageTable select:focus, #stageManageTable textarea:focus { outline: none; border-color: #6b4226; background: #fff; }
 #stageManageTable .row-delete { background: #c62828; color: #fff; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 700; }
 #stageManageTable .row-save { background: #1a73e8; color: #fff; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 700; margin-right: 4px; }
 .save-all-btn { background: #6b4226; color: #fff; border: none; padding: 13px 28px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 15px; margin-top: 18px; }
@@ -190,13 +200,28 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
       <h2>👥 SRM Doors — Clients</h2>
       <button id="exportExcelBtn" class="export-btn">📥 Download Excel</button>
     </div>
+    <div class="clients-toolbar">
+      <input id="globalSearch" class="search-input" type="text" placeholder="🔍 Search all columns…" />
+      <span id="resultCount" class="result-count"></span>
+      <button id="clearFiltersBtn" class="clear-filters-btn">✖ Clear All Filters</button>
+    </div>
     <div class="table-wrap">
       <table id="clientsTable">
-        <thead><tr>
-          <th>Date Added</th><th>Stage</th><th>To-Do</th><th>Follow-up Date</th>
-          <th>Company / Project</th><th>Contact</th><th>Phone</th><th>Email</th>
-          <th>Owner</th><th>Status</th><th>Actions</th>
-        </tr></thead>
+        <thead>
+          <tr id="clientsTheadRow">
+            <th data-col="created_at">Date Added <button class="filter-btn" data-col="created_at">▾</button></th>
+            <th data-col="done_stage">Stage <button class="filter-btn" data-col="done_stage">▾</button></th>
+            <th data-col="todo_stage">To-Do <button class="filter-btn" data-col="todo_stage">▾</button></th>
+            <th data-col="followup_date">Follow-up Date <button class="filter-btn" data-col="followup_date">▾</button></th>
+            <th data-col="company">Company / Project <button class="filter-btn" data-col="company">▾</button></th>
+            <th data-col="contact">Contact <button class="filter-btn" data-col="contact">▾</button></th>
+            <th data-col="phone">Phone <button class="filter-btn" data-col="phone">▾</button></th>
+            <th data-col="email">Email <button class="filter-btn" data-col="email">▾</button></th>
+            <th data-col="assigned_to">Owner <button class="filter-btn" data-col="assigned_to">▾</button></th>
+            <th data-col="approved">Status <button class="filter-btn" data-col="approved">▾</button></th>
+            <th>Actions</th>
+          </tr>
+        </thead>
         <tbody></tbody>
       </table>
     </div>
@@ -244,15 +269,14 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
     </form>
   </section>
 
-  <!-- MANAGE STAGES -->
   <section id="tab-manageStages" class="tab-panel">
     <h2>⚙️ Manage Stages, To-Dos & Messages</h2>
     <p style="color:#6b5d52;margin-bottom:16px;font-size:14px">
-      Each stage has its own WhatsApp & Email template. The template used for a client is picked from the client's <b>current stage</b>. Click <b>💾 Save</b> on a row or <b>💾 Save All</b> at the bottom.
+      Each stage has its own WhatsApp & Email template. The template used for a client is picked from the client's <b>current stage</b>.
     </p>
     <div class="stage-mgmt-toolbar">
-      <input type="text" id="newStageName" placeholder="New stage name (e.g. 35. Follow-up Call)" />
-      <input type="text" id="newStageTodo" placeholder="New to-do (e.g. Call client)" />
+      <input type="text" id="newStageName" placeholder="New stage name" />
+      <input type="text" id="newStageTodo" placeholder="New to-do" />
       <select id="newStageGroup" style="padding:10px;border-radius:8px;border:1px solid #d0c8c0;font-size:14px;">
         <option value="active">Active</option>
         <option value="dead">Dead</option>
@@ -283,20 +307,22 @@ const SUPABASE_URL = "https://wahxxiwtutjwxtedcedb.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable__S08Yx-z66ewIrpwSx7w5Q_9kk94BFK";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-/* ============ ADMIN EMAIL ============ */
 const ADMIN_EMAIL = "salereviewmanagement@gmail.com";
 
-/* ============ GLOBAL STATE ============ */
-let stageMap         = [];    // [{id, stage, todo, grp, sort_order, wa_template, email_template}]
-let stageToTodo      = {};
-let stageToWA        = {};
-let stageToEmail     = {};
-let deadStages       = new Set();
-let currentClients   = [];
-let currentUser      = null;
-let currentRole      = "salesperson";
+/* ============ STATE ============ */
+let stageMap = [];
+let stageToTodo = {};
+let stageToWA = {};
+let stageToEmail = {};
+let deadStages = new Set();
+let currentClients = [];
+let currentUser = null;
+let currentRole = "salesperson";
 
-/* Global fallback used when a stage has no template yet */
+let activeFilters = {};     // { colKey: Set(values) }
+let globalSearchTerm = "";
+let openFilterCol = null;
+
 const FALLBACK_WA_TPL =
 `*Greetings from SRM Doors!*
 
@@ -331,13 +357,16 @@ SRM Doors — Quality You Can Trust`;
 
 /* ============ DOM ============ */
 const loginScreen = document.getElementById("loginScreen");
-const appScreen   = document.getElementById("appScreen");
-const loginForm   = document.getElementById("loginForm");
-const loginBtn    = document.getElementById("loginBtn");
-const clientForm  = document.getElementById("clientForm");
+const appScreen = document.getElementById("appScreen");
+const loginForm = document.getElementById("loginForm");
+const loginBtn = document.getElementById("loginBtn");
+const clientForm = document.getElementById("clientForm");
 const toastContainer = document.getElementById("toastContainer");
-const stageSelect     = document.getElementById("doneStage");
-const todoSelect      = document.getElementById("todoStage");
+const stageSelect = document.getElementById("doneStage");
+const todoSelect = document.getElementById("todoStage");
+const searchInput = document.getElementById("globalSearch");
+const resultCountEl = document.getElementById("resultCount");
+const theadRow = document.getElementById("clientsTheadRow");
 
 /* ============ UTILITIES ============ */
 function toast(msg, type = "info", duration = 3000) {
@@ -371,14 +400,11 @@ async function loadStageMap() {
   if (error) { toast("Failed to load stages: " + error.message, "error"); return; }
   stageMap = data || [];
 
-  stageToTodo  = {};
-  stageToWA    = {};
-  stageToEmail = {};
-  deadStages   = new Set();
-
+  stageToTodo = {}; stageToWA = {}; stageToEmail = {};
+  deadStages = new Set();
   stageMap.forEach(r => {
-    stageToTodo[r.stage]  = r.todo;
-    stageToWA[r.stage]    = r.wa_template    || FALLBACK_WA_TPL;
+    stageToTodo[r.stage] = r.todo;
+    stageToWA[r.stage] = r.wa_template || FALLBACK_WA_TPL;
     stageToEmail[r.stage] = r.email_template || FALLBACK_EMAIL_TPL;
     if (r.grp === "dead") deadStages.add(r.stage);
   });
@@ -387,9 +413,9 @@ async function loadStageMap() {
   renderStageManageTable();
   renderDashboard(currentClients);
 }
-function todoForStage(stage)   { return stageToTodo[stage]  || ""; }
-function waForStage(stage)     { return stageToWA[stage]    || FALLBACK_WA_TPL; }
-function emailForStage(stage)  { return stageToEmail[stage] || FALLBACK_EMAIL_TPL; }
+function todoForStage(s) { return stageToTodo[s] || ""; }
+function waForStage(s) { return stageToWA[s] || FALLBACK_WA_TPL; }
+function emailForStage(s) { return stageToEmail[s] || FALLBACK_EMAIL_TPL; }
 
 function populateStageDropdowns() {
   stageSelect.innerHTML = `<option value="">— select stage —</option>` +
@@ -409,9 +435,9 @@ stageSelect.addEventListener("change", () => {
 /* ============ AUTH ============ */
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
-  const email    = document.getElementById("loginEmail").value.trim();
+  const email = document.getElementById("loginEmail").value.trim();
   const password = document.getElementById("loginPassword").value;
-  const errEl    = document.getElementById("loginError");
+  const errEl = document.getElementById("loginError");
   errEl.textContent = "";
   loginBtn.disabled = true; loginBtn.textContent = "Signing in…";
   const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
@@ -434,8 +460,7 @@ async function showApp(user) {
   const { data: profile } = await supabaseClient
     .from("profiles").select("role").eq("id", user.id).single();
   currentRole = profile?.role || "salesperson";
-  document.getElementById("userRole").textContent =
-    isAdminUser() ? "ADMIN" : currentRole;
+  document.getElementById("userRole").textContent = isAdminUser() ? "ADMIN" : currentRole;
 
   loginScreen.classList.remove("active");
   appScreen.classList.add("active");
@@ -462,16 +487,16 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
 /* ============ TEMPLATE FILL ============ */
 function fillTemplate(tpl, c) {
   const stage = c.done_stage || "";
-  const todo  = c.todo_stage || todoForStage(stage) || "";
+  const todo = c.todo_stage || todoForStage(stage) || "";
   const map = {
-    "{contact}":  c.contact || "",
-    "{company}":  c.company || "",
-    "{phone}":    c.phone || "",
-    "{email}":    c.email || "",
-    "{stage}":    stage,
-    "{todo}":     todo,
+    "{contact}": c.contact || "",
+    "{company}": c.company || "",
+    "{phone}": c.phone || "",
+    "{email}": c.email || "",
+    "{stage}": stage,
+    "{todo}": todo,
     "{followup}": fmtDate(c.followup_date),
-    "{notes}":    c.notes || ""
+    "{notes}": c.notes || ""
   };
   return Object.keys(map).reduce((acc, key) => acc.split(key).join(map[key]), tpl);
 }
@@ -491,8 +516,7 @@ async function refreshAll() {
 
 /* ============ DASHBOARD ============ */
 function renderDashboard(clients) {
-  const stageSummary = {};
-  let deadCount = 0;
+  const stageSummary = {}; let deadCount = 0;
   clients.forEach(c => {
     const stage = (c.done_stage || "").trim();
     if (!stage) return;
@@ -508,11 +532,11 @@ function renderDashboard(clients) {
   });
 
   const stageTbody = document.querySelector("#stageTable tbody");
-  const todoTbody  = document.querySelector("#todoTable tbody");
+  const todoTbody = document.querySelector("#todoTable tbody");
   stageTbody.innerHTML = ""; todoTbody.innerHTML = "";
 
   const stageKeys = Object.keys(stageSummary);
-  const todoKeys  = Object.keys(todoSummary);
+  const todoKeys = Object.keys(todoSummary);
 
   if (stageKeys.length === 0) {
     stageTbody.innerHTML = `<tr><td colspan="2" class="empty-row">No active stages yet</td></tr>`;
@@ -534,20 +558,151 @@ function renderDashboard(clients) {
   document.getElementById("summaryStats").innerHTML = statsHtml;
 }
 
-/* ============ CLIENTS TABLE ============ */
-function renderClients(clients) {
+/* ============ FILTERING ENGINE ============ */
+function getCellValueForFilter(c, col) {
+  if (col === "created_at") return fmtDate(c.created_at) || "(empty)";
+  if (col === "followup_date") return fmtDate(c.followup_date) || "(empty)";
+  if (col === "approved") return c.approved ? "Approved" : "Pending";
+  if (col === "assigned_to") return c.assigned_to || "(empty)";
+  if (col === "done_stage") return c.done_stage || "(empty)";
+  if (col === "todo_stage") return c.todo_stage || todoForStage(c.done_stage) || "(empty)";
+  return c[col] || "(empty)";
+}
+
+function getFilteredClients() {
+  let list = currentClients.slice();
+
+  // Global search
+  if (globalSearchTerm.trim()) {
+    const q = globalSearchTerm.trim().toLowerCase();
+    list = list.filter(c => {
+      const fields = [
+        c.company, c.contact, c.phone, c.email, c.notes,
+        c.done_stage, c.todo_stage || todoForStage(c.done_stage),
+        c.assigned_to, c.approved ? "approved" : "pending",
+        fmtDate(c.created_at), fmtDate(c.followup_date)
+      ];
+      return fields.some(f => String(f || "").toLowerCase().includes(q));
+    });
+  }
+
+  // Column filters
+  Object.keys(activeFilters).forEach(col => {
+    const selected = activeFilters[col];
+    if (!selected || selected.size === 0) return;
+    list = list.filter(c => selected.has(getCellValueForFilter(c, col)));
+  });
+
+  return list;
+}
+
+/* ============ OPEN/CLOSE FILTER POPUPS ============ */
+function closeAllFilterPopups() {
+  document.querySelectorAll(".filter-popup").forEach(p => p.remove());
+  document.querySelectorAll(".filter-btn.active").forEach(b => b.classList.remove("active"));
+  openFilterCol = null;
+}
+
+function openFilterPopup(col, btn) {
+  closeAllFilterPopups();
+  openFilterCol = col;
+  btn.classList.add("active");
+
+  // Build list of unique values in current column from ALL clients (not filtered)
+  const values = new Set();
+  currentClients.forEach(c => values.add(getCellValueForFilter(c, col)));
+  const sorted = [...values].sort();
+
+  // Determine current selection (or all selected by default)
+  const currentSel = activeFilters[col] || new Set(sorted);
+
+  const popup = document.createElement("div");
+  popup.className = "filter-popup open";
+  popup.innerHTML = `
+    <input type="text" class="fp-search" placeholder="Search values…" />
+    <div class="fp-list"></div>
+    <div class="fp-actions">
+      <button type="button" class="fp-all">Select All</button>
+      <button type="button" class="fp-none">Clear All</button>
+      <button type="button" class="fp-apply">✓ Apply</button>
+    </div>
+  `;
+
+  const listWrap = popup.querySelector(".fp-list");
+  function renderChecklist(searchTerm = "") {
+    listWrap.innerHTML = "";
+    sorted
+      .filter(v => v.toLowerCase().includes(searchTerm.toLowerCase()))
+      .forEach(v => {
+        const checked = currentSel.has(v) ? "checked" : "";
+        listWrap.insertAdjacentHTML("beforeend",
+          `<label><input type="checkbox" value="${escapeHtml(v)}" ${checked}/> ${escapeHtml(v)}</label>`);
+      });
+  }
+  renderChecklist();
+
+  popup.querySelector(".fp-search").addEventListener("input", (e) => {
+    renderChecklist(e.target.value);
+  });
+  popup.querySelector(".fp-all").addEventListener("click", () => {
+    listWrap.querySelectorAll("input[type=checkbox]").forEach(cb => cb.checked = true);
+  });
+  popup.querySelector(".fp-none").addEventListener("click", () => {
+    listWrap.querySelectorAll("input[type=checkbox]").forEach(cb => cb.checked = false);
+  });
+  popup.querySelector(".fp-apply").addEventListener("click", () => {
+    const checked = new Set();
+    listWrap.querySelectorAll("input[type=checkbox]:checked").forEach(cb => checked.add(cb.value));
+    if (checked.size === 0 || checked.size === sorted.length) {
+      delete activeFilters[col];     // no filter
+    } else {
+      activeFilters[col] = checked;
+    }
+    closeAllFilterPopups();
+    renderClients(currentClients);
+  });
+
+  // Position under button
+  const th = btn.parentElement;
+  th.style.position = "relative";
+  th.appendChild(popup);
+}
+
+// Attach filter buttons (event delegation, once)
+theadRow.addEventListener("click", (e) => {
+  const btn = e.target.closest(".filter-btn");
+  if (!btn) return;
+  e.stopPropagation();
+  const col = btn.dataset.col;
+  if (openFilterCol === col) { closeAllFilterPopups(); return; }
+  openFilterPopup(col, btn);
+});
+
+document.addEventListener("click", (e) => {
+  if (!e.target.closest(".filter-popup") && !e.target.closest(".filter-btn")) {
+    closeAllFilterPopups();
+  }
+});
+
+/* ============ CLIENTS TABLE RENDER ============ */
+function renderClients(allClients) {
+  const clients = getFilteredClients();
   const tbody = document.querySelector("#clientsTable tbody");
   tbody.innerHTML = "";
+
+  resultCountEl.textContent = `${clients.length} / ${allClients.length} rows`;
+
   if (clients.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="11" class="empty-row">No clients yet — add one to get started</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="11" class="empty-row">No clients match the current filters</td></tr>`;
     return;
   }
+
   const admin = isAdminUser();
 
   clients.forEach(c => {
     const overdue = c.followup_date && new Date(c.followup_date) < daysAgo(2);
     const stage = c.done_stage || "";
-    const todo  = c.todo_stage || todoForStage(stage) || "";
+    const todo = c.todo_stage || todoForStage(stage) || "";
     const approved = c.approved === true;
     const owner = c.assigned_to || "—";
 
@@ -562,9 +717,7 @@ function renderClients(clients) {
         <td>${escapeHtml(c.phone || "")}</td>
         <td>${escapeHtml(c.email || "")}</td>
         <td style="font-size:11.5px;color:#6b5d52">${escapeHtml(owner)}</td>
-        <td>${approved
-          ? `<span class="approved-label">✓ Approved</span>`
-          : `<span style="color:#999;font-size:12px">Pending</span>`}</td>
+        <td>${approved ? `<span class="approved-label">✓ Approved</span>` : `<span style="color:#999;font-size:12px">Pending</span>`}</td>
         <td class="action-cell">
           ${approved ? `` : `<button class="approve-btn" data-id="${c.id}">✅ Approve</button>`}
           ${admin ? `<button class="copy-btn" data-id="${c.id}">📋 Copy</button>` : ""}
@@ -577,74 +730,78 @@ function renderClients(clients) {
     `);
   });
 
-  tbody.querySelectorAll(".approve-btn").forEach(b =>
-    b.addEventListener("click", () => approveClient(b.dataset.id)));
-  tbody.querySelectorAll(".copy-btn").forEach(b =>
-    b.addEventListener("click", () => copyClientToUser(b.dataset.id)));
-  tbody.querySelectorAll(".edit-btn").forEach(b =>
-    b.addEventListener("click", () => loadForEdit(b.dataset.id)));
-  tbody.querySelectorAll(".delete-btn").forEach(b =>
-    b.addEventListener("click", () => deleteClient(b.dataset.id)));
-  tbody.querySelectorAll(".email-btn").forEach(b =>
-    b.addEventListener("click", () => openEmail(b.dataset.id)));
-  tbody.querySelectorAll(".wa-btn").forEach(b =>
-    b.addEventListener("click", () => openWhatsApp(b.dataset.id)));
+  tbody.querySelectorAll(".approve-btn").forEach(b => b.addEventListener("click", () => approveClient(b.dataset.id)));
+  tbody.querySelectorAll(".copy-btn").forEach(b => b.addEventListener("click", () => copyClientToUser(b.dataset.id)));
+  tbody.querySelectorAll(".edit-btn").forEach(b => b.addEventListener("click", () => loadForEdit(b.dataset.id)));
+  tbody.querySelectorAll(".delete-btn").forEach(b => b.addEventListener("click", () => deleteClient(b.dataset.id)));
+  tbody.querySelectorAll(".email-btn").forEach(b => b.addEventListener("click", () => openEmail(b.dataset.id)));
+  tbody.querySelectorAll(".wa-btn").forEach(b => b.addEventListener("click", () => openWhatsApp(b.dataset.id)));
 }
+
+/* ============ GLOBAL SEARCH ============ */
+let searchDebounce;
+searchInput.addEventListener("input", (e) => {
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(() => {
+    globalSearchTerm = e.target.value;
+    renderClients(currentClients);
+  }, 200);
+});
+
+document.getElementById("clearFiltersBtn").addEventListener("click", () => {
+  activeFilters = {};
+  globalSearchTerm = "";
+  searchInput.value = "";
+  closeAllFilterPopups();
+  renderClients(currentClients);
+  toast("Filters cleared", "info");
+});
 
 /* ============ APPROVE ============ */
 async function approveClient(id) {
   if (!confirm("Approve this client? This cannot be undone.")) return;
-  const { error } = await supabaseClient
-    .from("clients")
-    .update({
-      approved: true,
-      approved_at: new Date().toISOString(),
-      approved_by: currentUser?.email || "unknown"
-    })
-    .eq("id", id);
+  const { error } = await supabaseClient.from("clients").update({
+    approved: true,
+    approved_at: new Date().toISOString(),
+    approved_by: currentUser?.email || "unknown"
+  }).eq("id", id);
   if (error) { toast("Approve failed: " + error.message, "error"); return; }
   toast("Client approved ✓", "success");
   await refreshAll();
 }
 
-/* ============ COPY ============ */
+/* ============ COPY (ADMIN ONLY) ============ */
 async function copyClientToUser(id) {
   if (!isAdminUser()) { toast("Only " + ADMIN_EMAIL + " can copy rows", "error"); return; }
   const c = currentClients.find(x => x.id === id);
   if (!c) return;
-
   const targetEmail = prompt(
-    "Copy this client to which user's email?\n\n" +
-    "(That user will see and own the copy. Only " + ADMIN_EMAIL + " can see all rows.)",
+    "Copy this client to which user's email?\n\n(That user will see and own the copy.)",
     "rupesh78.rv@gmail.com"
   );
   if (!targetEmail) return;
-
   const cleanEmail = targetEmail.trim().toLowerCase();
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
-    toast("Invalid email address", "error");
-    return;
+    toast("Invalid email address", "error"); return;
   }
-
   const payload = {
-    company:       (c.company || "") + " (Copy)",
-    contact:       c.contact || "",
-    phone:         c.phone || "",
-    email:         c.email || "",
-    todo_stage:    c.todo_stage || "",
-    done_stage:    c.done_stage || "",
+    company: (c.company || "") + " (Copy)",
+    contact: c.contact || "",
+    phone: c.phone || "",
+    email: c.email || "",
+    todo_stage: c.todo_stage || "",
+    done_stage: c.done_stage || "",
     followup_date: c.followup_date || null,
-    notes:         c.notes || "",
-    approved:      false,
-    approved_at:   null,
-    approved_by:   null,
-    created_at:    new Date().toISOString(),
-    updated_at:    new Date().toISOString(),
-    assigned_to:   cleanEmail,
-    created_by:    currentUser.email,
-    copied_from:   c.id
+    notes: c.notes || "",
+    approved: false,
+    approved_at: null,
+    approved_by: null,
+    created_at: new Date().toISOString(),
+    updated_at: new Date().toISOString(),
+    assigned_to: cleanEmail,
+    created_by: currentUser.email,
+    copied_from: c.id
   };
-
   const { error } = await supabaseClient.from("clients").insert([payload]);
   if (error) { toast("Copy failed: " + error.message, "error"); return; }
   toast(`Copied to ${cleanEmail} ✓`, "success");
@@ -653,21 +810,22 @@ async function copyClientToUser(id) {
 
 /* ============ EXPORT EXCEL ============ */
 document.getElementById("exportExcelBtn").addEventListener("click", () => {
-  if (currentClients.length === 0) { toast("No clients to export", "error"); return; }
-  const rows = currentClients.map(c => ({
-    "Date Added":     fmtDate(c.created_at),
-    "Stage":          c.done_stage || "",
-    "To-Do":          c.todo_stage || todoForStage(c.done_stage) || "",
+  const filtered = getFilteredClients();
+  if (filtered.length === 0) { toast("No clients to export", "error"); return; }
+  const rows = filtered.map(c => ({
+    "Date Added": fmtDate(c.created_at),
+    "Stage": c.done_stage || "",
+    "To-Do": c.todo_stage || todoForStage(c.done_stage) || "",
     "Follow-up Date": fmtDate(c.followup_date),
     "Company/Project": c.company || "",
-    "Contact":        c.contact || "",
-    "Phone":          c.phone || "",
-    "Email":          c.email || "",
-    "Notes":          c.notes || "",
-    "Owner":          c.assigned_to || "",
-    "Approved":       c.approved ? "Yes" : "No",
-    "Approved At":    c.approved_at ? fmtDate(c.approved_at) : "",
-    "Approved By":    c.approved_by || ""
+    "Contact": c.contact || "",
+    "Phone": c.phone || "",
+    "Email": c.email || "",
+    "Notes": c.notes || "",
+    "Owner": c.assigned_to || "",
+    "Approved": c.approved ? "Yes" : "No",
+    "Approved At": c.approved_at ? fmtDate(c.approved_at) : "",
+    "Approved By": c.approved_by || ""
   }));
   const ws = XLSX.utils.json_to_sheet(rows);
   const headers = Object.keys(rows[0]);
@@ -677,15 +835,15 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "SRM Clients");
   XLSX.writeFile(wb, `SRM_Doors_Clients_${new Date().toISOString().slice(0,10)}.xlsx`);
-  toast("Excel downloaded", "success");
+  toast(`Excel downloaded (${filtered.length} rows)`, "success");
 });
 
-/* ============ EMAIL / WHATSAPP (per-stage template) ============ */
+/* ============ EMAIL / WHATSAPP ============ */
 function openEmail(id) {
   const c = currentClients.find(x => x.id === id);
   if (!c || !c.email) return;
   const stage = c.done_stage || "";
-  const tpl   = emailForStage(stage);          // ← picks this stage's template
+  const tpl = emailForStage(stage);
   const subject = encodeURIComponent(`SRM Doors — ${stage || "Update"} — ${c.company || ""}`);
   const body = encodeURIComponent(fillTemplate(tpl, c));
   window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(c.email)}&su=${subject}&body=${body}`, "_blank");
@@ -694,7 +852,7 @@ function openWhatsApp(id) {
   const c = currentClients.find(x => x.id === id);
   if (!c) return;
   const stage = c.done_stage || "";
-  const tpl   = waForStage(stage);              // ← picks this stage's template
+  const tpl = waForStage(stage);
   let phone = String(c.phone || "").replace(/\D/g, "");
   if (!phone.startsWith("91")) phone = "91" + phone;
   const text = encodeURIComponent(fillTemplate(tpl, c));
@@ -706,36 +864,31 @@ clientForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const msg = document.getElementById("formMsg");
   msg.textContent = "";
-
   const stage = stageSelect.value;
-  const todo  = todoSelect.value || todoForStage(stage);
-
+  const todo = todoSelect.value || todoForStage(stage);
   const payload = {
-    company:       document.getElementById("companyName").value.trim(),
-    contact:       document.getElementById("contactPerson").value.trim(),
-    phone:         document.getElementById("phone").value.trim(),
-    email:         document.getElementById("email").value.trim(),
-    todo_stage:    todo,
-    done_stage:    stage,
+    company: document.getElementById("companyName").value.trim(),
+    contact: document.getElementById("contactPerson").value.trim(),
+    phone: document.getElementById("phone").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    todo_stage: todo,
+    done_stage: stage,
     followup_date: document.getElementById("followupDate").value || null,
-    notes:         document.getElementById("notes").value.trim(),
-    updated_at:    new Date().toISOString()
+    notes: document.getElementById("notes").value.trim(),
+    updated_at: new Date().toISOString()
   };
-
   const id = document.getElementById("clientId").value;
-
   let error;
   if (id) {
     ({ error } = await supabaseClient.from("clients").update(payload).eq("id", id));
   } else {
-    payload.created_at  = new Date().toISOString();
-    payload.approved    = false;
+    payload.created_at = new Date().toISOString();
+    payload.approved = false;
     payload.assigned_to = currentUser.email;
-    payload.created_by  = currentUser.email;
+    payload.created_by = currentUser.email;
     ({ error } = await supabaseClient.from("clients").insert([payload]));
   }
   if (error) { msg.textContent = error.message; toast("Save failed: " + error.message, "error"); return; }
-
   toast(id ? "Project updated" : "Project added", "success");
   resetForm(); await refreshAll();
   document.querySelector('[data-tab="clients"]').click();
@@ -746,21 +899,25 @@ document.getElementById("cancelEdit").addEventListener("click", resetForm);
 function loadForEdit(id) {
   const c = currentClients.find(x => x.id === id);
   if (!c) return;
-  document.getElementById("clientId").value      = c.id;
-  document.getElementById("companyName").value   = c.company || "";
+  document.getElementById("clientId").value = c.id;
+  document.getElementById("companyName").value = c.company || "";
   document.getElementById("contactPerson").value = c.contact || "";
-  document.getElementById("phone").value         = c.phone || "";
-  document.getElementById("email").value         = c.email || "";
-  document.getElementById("doneStage").value     = c.done_stage || "";
-  document.getElementById("followupDate").value  = c.followup_date || "";
-  document.getElementById("notes").value         = c.notes || "";
+  document.getElementById("phone").value = c.phone || "";
+  document.getElementById("email").value = c.email || "";
+  document.getElementById("doneStage").value = c.done_stage || "";
+  document.getElementById("followupDate").value = c.followup_date || "";
+  document.getElementById("notes").value = c.notes || "";
   todoSelect.value = c.todo_stage || todoForStage(c.done_stage) || "";
   document.getElementById("formTitle").textContent = "✏️ Edit Client / Project";
   document.querySelector('[data-tab="addClient"]').click();
 }
 
 async function deleteClient(id) {
-  if (!isAdminUser()) { toast("Only " + ADMIN_EMAIL + " can delete clients", "error"); return; }
+  // ── ADMIN ONLY — Delete ──
+  if (!isAdminUser()) {
+    toast("Only " + ADMIN_EMAIL + " can delete clients", "error");
+    return;
+  }
   if (!confirm("Delete this project permanently?")) return;
   const { error } = await supabaseClient.from("clients").delete().eq("id", id);
   if (error) { toast("Delete failed: " + error.message, "error"); return; }
@@ -773,10 +930,10 @@ function resetForm() {
   document.getElementById("clientId").value = "";
   document.getElementById("formMsg").textContent = "";
   document.getElementById("formTitle").textContent = "➕ Add New Client / Project";
-  todoSelect.innerHTML  = `<option value="">— none —</option>`;
+  todoSelect.innerHTML = `<option value="">— none —</option>`;
 }
 
-/* ============ MANAGE STAGES (with per-stage templates) ============ */
+/* ============ MANAGE STAGES ============ */
 function renderStageManageTable() {
   const tbody = document.querySelector("#stageManageTable tbody");
   tbody.innerHTML = "";
@@ -785,7 +942,7 @@ function renderStageManageTable() {
     return;
   }
   stageMap.forEach((r, i) => {
-    const wa    = r.wa_template    || FALLBACK_WA_TPL;
+    const wa = r.wa_template || FALLBACK_WA_TPL;
     const email = r.email_template || FALLBACK_EMAIL_TPL;
     tbody.insertAdjacentHTML("beforeend", `
       <tr data-id="${r.id}">
@@ -795,7 +952,7 @@ function renderStageManageTable() {
         <td>
           <select class="edit-group">
             <option value="active" ${r.grp === "active" ? "selected" : ""}>Active</option>
-            <option value="dead"   ${r.grp === "dead"   ? "selected" : ""}>Dead</option>
+            <option value="dead" ${r.grp === "dead" ? "selected" : ""}>Dead</option>
           </select>
         </td>
         <td><textarea class="edit-wa">${escapeHtml(wa)}</textarea></td>
@@ -807,28 +964,21 @@ function renderStageManageTable() {
       </tr>
     `);
   });
-  tbody.querySelectorAll(".row-save").forEach(b =>
-    b.addEventListener("click", () => saveRow(b.dataset.id)));
-  tbody.querySelectorAll(".row-delete").forEach(b =>
-    b.addEventListener("click", () => deleteStage(b.dataset.id)));
+  tbody.querySelectorAll(".row-save").forEach(b => b.addEventListener("click", () => saveRow(b.dataset.id)));
+  tbody.querySelectorAll(".row-delete").forEach(b => b.addEventListener("click", () => deleteStage(b.dataset.id)));
 }
 
 async function saveRow(id) {
   const tr = document.querySelector(`#stageManageTable tr[data-id="${id}"]`);
   if (!tr) return;
   const stage = tr.querySelector(".edit-stage").value.trim();
-  const todo  = tr.querySelector(".edit-todo").value.trim();
-  const grp   = tr.querySelector(".edit-group").value;
-  const wa    = tr.querySelector(".edit-wa").value;
+  const todo = tr.querySelector(".edit-todo").value.trim();
+  const grp = tr.querySelector(".edit-group").value;
+  const wa = tr.querySelector(".edit-wa").value;
   const email = tr.querySelector(".edit-email").value;
-
   if (!stage || !todo) { toast("Stage and To-Do cannot be empty", "error"); return; }
-
-  const { error } = await supabaseClient
-    .from("stage_map")
-    .update({ stage, todo, grp, wa_template: wa, email_template: email })
-    .eq("id", id);
-
+  const { error } = await supabaseClient.from("stage_map")
+    .update({ stage, todo, grp, wa_template: wa, email_template: email }).eq("id", id);
   if (error) { toast("Save failed: " + error.message, "error"); return; }
   toast("Stage updated", "success");
   await loadStageMap();
@@ -844,14 +994,13 @@ async function deleteStage(id) {
 
 document.getElementById("addStageBtn").addEventListener("click", async () => {
   const stage = document.getElementById("newStageName").value.trim();
-  const todo  = document.getElementById("newStageTodo").value.trim();
-  const grp   = document.getElementById("newStageGroup").value;
+  const todo = document.getElementById("newStageTodo").value.trim();
+  const grp = document.getElementById("newStageGroup").value;
   if (!stage || !todo) { toast("Stage and To-Do are required", "error"); return; }
   const maxOrder = stageMap.reduce((m, r) => Math.max(m, r.sort_order || 0), 0);
   const { error } = await supabaseClient.from("stage_map").insert([{
     stage, todo, grp, sort_order: maxOrder + 1,
-    wa_template:    FALLBACK_WA_TPL,
-    email_template: FALLBACK_EMAIL_TPL
+    wa_template: FALLBACK_WA_TPL, email_template: FALLBACK_EMAIL_TPL
   }]);
   if (error) { toast("Add failed: " + error.message, "error"); return; }
   document.getElementById("newStageName").value = "";
@@ -865,27 +1014,23 @@ document.getElementById("saveAllStagesBtn").addEventListener("click", async () =
   const updates = [];
   rows.forEach(tr => {
     updates.push({
-      id:    tr.dataset.id,
+      id: tr.dataset.id,
       stage: tr.querySelector(".edit-stage").value.trim(),
-      todo:  tr.querySelector(".edit-todo").value.trim(),
-      grp:   tr.querySelector(".edit-group").value,
-      wa:    tr.querySelector(".edit-wa").value,
+      todo: tr.querySelector(".edit-todo").value.trim(),
+      grp: tr.querySelector(".edit-group").value,
+      wa: tr.querySelector(".edit-wa").value,
       email: tr.querySelector(".edit-email").value
     });
   });
   if (updates.some(u => !u.stage || !u.todo)) {
-    toast("All rows need Stage and To-Do filled in", "error");
-    return;
+    toast("All rows need Stage and To-Do filled in", "error"); return;
   }
   let failed = 0;
   for (const u of updates) {
-    const { error } = await supabaseClient
-      .from("stage_map")
-      .update({
-        stage: u.stage, todo: u.todo, grp: u.grp,
-        wa_template: u.wa, email_template: u.email
-      })
-      .eq("id", u.id);
+    const { error } = await supabaseClient.from("stage_map").update({
+      stage: u.stage, todo: u.todo, grp: u.grp,
+      wa_template: u.wa, email_template: u.email
+    }).eq("id", u.id);
     if (error) failed++;
   }
   if (failed > 0) toast(`${failed} row(s) failed to save`, "error");
