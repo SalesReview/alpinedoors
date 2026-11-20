@@ -114,10 +114,12 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 .remark-history-item { padding: 6px 0; border-bottom: 1px dashed #e5ddd5; }
 .remark-history-item:last-child { border-bottom: none; }
 .remark-history-meta { font-size: 11px; color: #7a685b; font-weight: 600; }
-.form-actions { display: flex; gap: 10px; margin-top: 4px; }
+.form-actions { display: flex; gap: 10px; margin-top: 4px; flex-wrap: wrap; }
 .client-form button[type=submit] { background: #6b4226; color: #fff; border: none; padding: 12px 26px; border-radius: 7px; cursor: pointer; font-weight: 700; font-size: 14px; }
 .client-form button[type=submit]:hover { background: #52321c; }
 .client-form button.secondary { background: #ede4da; color: #52321c; border: none; padding: 12px 26px; border-radius: 7px; cursor: pointer; font-weight: 700; font-size: 14px; }
+.client-form button.danger { background: #c62828; color: #fff; border: none; padding: 12px 26px; border-radius: 7px; cursor: pointer; font-weight: 700; font-size: 14px; }
+.client-form button.danger:hover { background: #a31d1d; }
 
 .stage-mgmt-toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
 .stage-mgmt-toolbar input { flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid #d0c8c0; border-radius: 8px; font-size: 14px; background: #fff; }
@@ -350,6 +352,7 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
       <div class="form-actions">
         <button type="submit">💾 Save Client</button>
         <button type="button" id="cancelEdit" class="secondary">Cancel</button>
+        <button type="button" id="formDeleteBtn" class="danger" style="display:none;">🗑 Delete Client</button>
       </div>
       <p id="formMsg" class="error"></p>
     </form>
@@ -450,6 +453,7 @@ const appScreen = document.getElementById("appScreen");
 const loginForm = document.getElementById("loginForm");
 const loginBtn = document.getElementById("loginBtn");
 const clientForm = document.getElementById("clientForm");
+const formDeleteBtn = document.getElementById("formDeleteBtn");
 const toastContainer = document.getElementById("toastContainer");
 const stageSelect = document.getElementById("doneStage");
 const todoSelect = document.getElementById("todoStage");
@@ -490,6 +494,10 @@ function daysAgo(n) { const d = new Date(); d.setDate(d.getDate() - n); return d
 function isAdminUser() {
   const email = (currentUser?.email || "").trim().toLowerCase();
   return email === ADMIN_EMAIL.toLowerCase() || String(currentRole || "").toLowerCase() === "admin";
+}
+function syncFormDeleteButtonVisibility() {
+  const id = document.getElementById("clientId").value;
+  formDeleteBtn.style.display = (isAdminUser() && id) ? "inline-flex" : "none";
 }
 function parseRemarkLog(rawLog) {
   if (Array.isArray(rawLog)) return rawLog;
@@ -577,6 +585,7 @@ async function showApp(user) {
     .from("profiles").select("role").eq("id", user.id).single();
   currentRole = profile?.role || "salesperson";
   document.getElementById("userRole").textContent = isAdminUser() ? "ADMIN" : currentRole;
+  syncFormDeleteButtonVisibility();
 
   loginScreen.classList.remove("active");
   appScreen.classList.add("active");
@@ -1158,6 +1167,16 @@ clientForm.addEventListener("submit", async (e) => {
 
 document.getElementById("cancelEdit").addEventListener("click", resetForm);
 
+formDeleteBtn.addEventListener("click", async () => {
+  const id = document.getElementById("clientId").value;
+  if (!id) return;
+  await deleteClient(id);
+  if (!currentClients.some(c => c.id === id)) {
+    resetForm();
+    document.querySelector('[data-tab="clients"]').click();
+  }
+});
+
 function loadForEdit(id) {
   const c = currentClients.find(x => x.id === id);
   if (!c) return;
@@ -1185,6 +1204,7 @@ function loadForEdit(id) {
   document.getElementById("notes").value = c.notes || "";
   todoSelect.value = c.todo_stage || todoForStage(c.done_stage) || "";
   renderFormRemarkLog(parseRemarkLog(c.remark_log));
+  syncFormDeleteButtonVisibility();
   document.getElementById("formTitle").textContent = "✏️ Edit Client / Project";
   document.querySelector('[data-tab="addClient"]').click();
 }
@@ -1211,6 +1231,7 @@ function resetForm() {
   document.getElementById("formTitle").textContent = "➕ Add New Client / Project";
   todoSelect.innerHTML = `<option value="">— none —</option>`;
   renderFormRemarkLog([]);
+  syncFormDeleteButtonVisibility();
 }
 
 /* ============ MANAGE STAGES ============ */
