@@ -54,19 +54,13 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 #summaryStats .stat b { color: #6b4226; font-size: 16px; }
 #summaryStats .dead b { color: #c62828; }
 
-/* Clients header row with export button */
 .clients-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 10px; }
 .clients-header h2 { margin: 0; }
-.export-btn {
-  background: #2d8e47; color: #fff; border: none;
-  padding: 11px 20px; border-radius: 8px; cursor: pointer;
-  font-weight: 700; font-size: 14px;
-  display: inline-flex; align-items: center; gap: 6px;
-}
+.export-btn { background: #2d8e47; color: #fff; border: none; padding: 11px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px; display: inline-flex; align-items: center; gap: 6px; }
 .export-btn:hover { background: #247239; }
 
 .table-wrap { overflow-x: auto; background: #fff; border-radius: 12px; padding: 6px; box-shadow: 0 2px 14px rgba(107,66,38,.08); }
-#clientsTable { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 1400px; }
+#clientsTable { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 1550px; }
 #clientsTable th, #clientsTable td { padding: 11px 10px; border-bottom: 1px solid #ede4da; text-align: left; white-space: nowrap; }
 #clientsTable th { background: #f3ece4; font-weight: 700; color: #52321c; position: sticky; top: 0; }
 #clientsTable tbody tr:hover { background: #faf6f1; }
@@ -77,19 +71,13 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 #clientsTable .action-cell { white-space: nowrap; display: flex; gap: 4px; align-items: center; }
 #clientsTable .action-cell button { padding: 6px 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
 #clientsTable .action-cell button:hover { filter: brightness(1.1); }
-.edit-btn { background: #d4a548; color: #fff; }
-.delete-btn { background: #c62828; color: #fff; }
-.wa-btn { background: #25d366; color: #fff; }
-.email-btn { background: #1a73e8; color: #fff; }
+.edit-btn    { background: #d4a548; color: #fff; }
+.delete-btn  { background: #c62828; color: #fff; }
+.wa-btn      { background: #25d366; color: #fff; }
+.email-btn   { background: #1a73e8; color: #fff; }
 .approve-btn { background: #2d8e47; color: #fff; }
-.approved-label {
-  display: inline-block;
-  background: #a5d6a7; color: #1b5e20;
-  padding: 5px 10px; border-radius: 5px;
-  font-size: 11px; font-weight: 800; letter-spacing: .5px;
-  text-transform: uppercase;
-  border: 1px solid #81c784;
-}
+.copy-btn    { background: #6f42c1; color: #fff; }
+.approved-label { display: inline-block; background: #a5d6a7; color: #1b5e20; padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; border: 1px solid #81c784; }
 .empty-row { text-align: center; color: #999; padding: 30px !important; font-style: italic; }
 
 .client-form { max-width: 780px; background: #fff; padding: 28px; border-radius: 12px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 2px 14px rgba(107,66,38,.08); border-top: 3px solid #a67c52; }
@@ -109,7 +97,6 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 .save-tpl-btn { background: #1a73e8; color: #fff; border: none; padding: 9px 18px; border-radius: 7px; cursor: pointer; font-weight: 700; font-size: 13px; align-self: flex-start; }
 .save-tpl-btn:hover { background: #1558b0; }
 
-/* Stage management */
 .stage-mgmt-toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
 .stage-mgmt-toolbar input { flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid #d0c8c0; border-radius: 8px; font-size: 14px; background: #fff; }
 .add-stage-btn { background: #2d8e47; color: #fff; border: none; padding: 11px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px; }
@@ -200,9 +187,17 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
     <div class="table-wrap">
       <table id="clientsTable">
         <thead><tr>
-          <th>Date Added</th><th>Stage</th><th>To-Do</th><th>Follow-up Date</th>
-          <th>Company / Project</th><th>Contact</th><th>Phone</th><th>Email</th>
-          <th>Status</th><th>Actions</th>
+          <th>Date Added</th>
+          <th>Stage</th>
+          <th>To-Do</th>
+          <th>Follow-up Date</th>
+          <th>Company / Project</th>
+          <th>Contact</th>
+          <th>Phone</th>
+          <th>Email</th>
+          <th>Owner</th>
+          <th>Status</th>
+          <th>Actions</th>
         </tr></thead>
         <tbody></tbody>
       </table>
@@ -267,7 +262,7 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
   <section id="tab-manageStages" class="tab-panel">
     <h2>⚙️ Manage Stages & To-Dos</h2>
     <p style="color:#6b5d52;margin-bottom:16px;font-size:14px">
-      Edit any row directly. Click <b>💾 Save All</b> when done. New rows appear in Stage dropdowns immediately after saving.
+      Edit any row directly. Click <b>💾 Save All</b> when done.
     </p>
     <div class="stage-mgmt-toolbar">
       <input type="text" id="newStageName" placeholder="New stage name (e.g. 35. Follow-up Call)" />
@@ -574,7 +569,7 @@ function renderClients(clients) {
   const tbody = document.querySelector("#clientsTable tbody");
   tbody.innerHTML = "";
   if (clients.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="10" class="empty-row">No clients yet — add one to get started</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="11" class="empty-row">No clients yet — add one to get started</td></tr>`;
     return;
   }
   const admin = isAdminUser();
@@ -584,6 +579,7 @@ function renderClients(clients) {
     const stage = c.done_stage || "";
     const todo  = c.todo_stage || todoForStage(stage) || "";
     const approved = c.approved === true;
+    const owner = c.assigned_to || "—";
 
     tbody.insertAdjacentHTML("beforeend", `
       <tr class="${approved ? "approved-row" : ""}">
@@ -595,13 +591,13 @@ function renderClients(clients) {
         <td>${escapeHtml(c.contact || "")}</td>
         <td>${escapeHtml(c.phone || "")}</td>
         <td>${escapeHtml(c.email || "")}</td>
+        <td style="font-size:11.5px;color:#6b5d52">${escapeHtml(owner)}</td>
         <td>${approved
           ? `<span class="approved-label">✓ Approved</span>`
           : `<span style="color:#999;font-size:12px">Pending</span>`}</td>
         <td class="action-cell">
-          ${approved
-            ? ``
-            : `<button class="approve-btn" data-id="${c.id}">✅ Approve</button>`}
+          ${approved ? `` : `<button class="approve-btn" data-id="${c.id}">✅ Approve</button>`}
+          ${admin ? `<button class="copy-btn" data-id="${c.id}">📋 Copy</button>` : ""}
           <button class="edit-btn" data-id="${c.id}">✏ Edit</button>
           ${admin ? `<button class="delete-btn" data-id="${c.id}">🗑 Delete</button>` : ""}
           ${c.email ? `<button class="email-btn" data-id="${c.id}">✉ Email</button>` : ""}
@@ -613,6 +609,8 @@ function renderClients(clients) {
 
   tbody.querySelectorAll(".approve-btn").forEach(b =>
     b.addEventListener("click", () => approveClient(b.dataset.id)));
+  tbody.querySelectorAll(".copy-btn").forEach(b =>
+    b.addEventListener("click", () => copyClientToUser(b.dataset.id)));
   tbody.querySelectorAll(".edit-btn").forEach(b =>
     b.addEventListener("click", () => loadForEdit(b.dataset.id)));
   tbody.querySelectorAll(".delete-btn").forEach(b =>
@@ -634,9 +632,55 @@ async function approveClient(id) {
       approved_by: currentUser?.email || "unknown"
     })
     .eq("id", id);
-
   if (error) { toast("Approve failed: " + error.message, "error"); return; }
   toast("Client approved ✓", "success");
+  await refreshAll();
+}
+
+/* ============ COPY ROW TO ANOTHER USER (ADMIN ONLY) ============ */
+async function copyClientToUser(id) {
+  if (!isAdminUser()) {
+    toast("Only " + ADMIN_EMAIL + " can copy rows", "error");
+    return;
+  }
+  const c = currentClients.find(x => x.id === id);
+  if (!c) return;
+
+  const targetEmail = prompt(
+    "Copy this client to which user's email?\n\n" +
+    "(That user will see and own the copy. Only " + ADMIN_EMAIL + " can see all rows.)",
+    "rupesh78.rv@gmail.com"
+  );
+  if (!targetEmail) return;
+
+  const cleanEmail = targetEmail.trim().toLowerCase();
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
+    toast("Invalid email address", "error");
+    return;
+  }
+
+  const payload = {
+    company:       (c.company || "") + " (Copy)",
+    contact:       c.contact || "",
+    phone:         c.phone || "",
+    email:         c.email || "",
+    todo_stage:    c.todo_stage || "",
+    done_stage:    c.done_stage || "",
+    followup_date: c.followup_date || null,
+    notes:         c.notes || "",
+    approved:      false,
+    approved_at:   null,
+    approved_by:   null,
+    created_at:    new Date().toISOString(),
+    updated_at:    new Date().toISOString(),
+    assigned_to:   cleanEmail,
+    created_by:    currentUser.email,
+    copied_from:   c.id
+  };
+
+  const { error } = await supabaseClient.from("clients").insert([payload]);
+  if (error) { toast("Copy failed: " + error.message, "error"); return; }
+  toast(`Copied to ${cleanEmail} ✓`, "success");
   await refreshAll();
 }
 
@@ -646,8 +690,6 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
     toast("No clients to export", "error");
     return;
   }
-
-  // Build a clean data set (not the HTML table — we want proper columns)
   const rows = currentClients.map(c => ({
     "Date Added":     fmtDate(c.created_at),
     "Stage":          c.done_stage || "",
@@ -658,24 +700,19 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
     "Phone":          c.phone || "",
     "Email":          c.email || "",
     "Notes":          c.notes || "",
+    "Owner":          c.assigned_to || "",
     "Approved":       c.approved ? "Yes" : "No",
     "Approved At":    c.approved_at ? fmtDate(c.approved_at) : "",
     "Approved By":    c.approved_by || ""
   }));
-
   const ws = XLSX.utils.json_to_sheet(rows);
-
-  // Auto-size columns
   const headers = Object.keys(rows[0]);
   ws["!cols"] = headers.map(h => ({
     wch: Math.max(h.length, ...rows.map(r => String(r[h] || "").length)) + 2
   }));
-
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "SRM Clients");
-
-  const filename = `SRM_Doors_Clients_${new Date().toISOString().slice(0,10)}.xlsx`;
-  XLSX.writeFile(wb, filename);
+  XLSX.writeFile(wb, `SRM_Doors_Clients_${new Date().toISOString().slice(0,10)}.xlsx`);
   toast("Excel downloaded", "success");
 });
 
@@ -723,8 +760,10 @@ clientForm.addEventListener("submit", async (e) => {
   if (id) {
     ({ error } = await supabaseClient.from("clients").update(payload).eq("id", id));
   } else {
-    payload.created_at = new Date().toISOString();
-    payload.approved = false;
+    payload.created_at  = new Date().toISOString();
+    payload.approved    = false;
+    payload.assigned_to = currentUser.email;
+    payload.created_by  = currentUser.email;
     ({ error } = await supabaseClient.from("clients").insert([payload]));
   }
   if (error) { msg.textContent = error.message; toast("Save failed: " + error.message, "error"); return; }
