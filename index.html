@@ -312,8 +312,8 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
         <label>Client Name
           <input type="text" id="clientName" placeholder="e.g. Skyline Developers Pvt Ltd" />
         </label>
-        <label>Client Location
-          <input type="text" id="clientLocation" placeholder="e.g. Baner, Pune" />
+        <label>Client Location (Google Maps Link or Area)
+          <input type="text" id="clientLocation" placeholder="https://maps.app.goo.gl/... or Baner, Pune" />
         </label>
         <label>Client Address
           <input type="text" id="clientAddress" placeholder="Full client office/billing address" />
@@ -594,13 +594,13 @@ function getSafeMapUrl(val) {
   return null;
 }
 
-function formatProjectLocationCell(val) {
+function formatMapLocationCell(val, defaultLabel = "Open Map") {
   const raw = String(val ?? "").trim();
   if (!raw) return "";
 
   const directUrl = getSafeMapUrl(raw);
   if (directUrl) {
-    return `<a class="map-link" href="${escapeHtml(directUrl)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(raw)}">📍 Open Map</a>`;
+    return `<a class="map-link" href="${escapeHtml(directUrl)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(raw)}">📍 ${escapeHtml(defaultLabel)}</a>`;
   }
 
   const searchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(raw)}`;
@@ -1035,11 +1035,11 @@ function renderClients(allClients) {
         <td>${escapeHtml(c.phone || "")}</td>
         <td title="${escapeHtml(c.email || "")}">${escapeHtml(c.email || "")}</td>
         <td title="${escapeHtml(c.client_name || "")}">${escapeHtml(c.client_name || "")}</td>
-        <td title="${escapeHtml(c.client_location || "")}">${escapeHtml(c.client_location || "")}</td>
+        <td title="${escapeHtml(c.client_location || "")}">${formatMapLocationCell(c.client_location)}</td>
         <td title="${escapeHtml(c.client_address || "")}">${escapeHtml(c.client_address || "")}</td>
         <td>${escapeHtml(c.project_id || "")}</td>
         <td title="${escapeHtml(c.project_name || "")}">${escapeHtml(c.project_name || "")}</td>
-        <td title="${escapeHtml(c.project_location || "")}">${formatProjectLocationCell(c.project_location)}</td>
+        <td title="${escapeHtml(c.project_location || "")}">${formatMapLocationCell(c.project_location)}</td>
         <td title="${escapeHtml(c.project_address || "")}">${escapeHtml(c.project_address || "")}</td>
         <td title="${escapeHtml(c.builder_name || "")}">${escapeHtml(c.builder_name || "")}</td>
         <td title="${escapeHtml(c.architect || "")}">${escapeHtml(c.architect || "")}</td>
