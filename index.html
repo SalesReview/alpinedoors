@@ -92,6 +92,19 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 #clientsTable tr.approved-row:hover { background: #d7ecdb; }
 .remark-log-cell { font-size: 11.5px; color: #52321c; white-space: normal !important; min-width: 220px; max-width: 300px !important; line-height: 1.35; }
 
+.map-link {
+  color: #1a73e8;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.map-link:hover {
+  text-decoration: underline;
+  color: #1254ab;
+}
+
 .th-inner { display: flex; align-items: center; gap: 6px; position: relative; }
 .filter-btn { background: none; border: 1px solid #c8bfb5; color: #6b4226; padding: 2px 7px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 700; line-height: 1; }
 .filter-btn:hover { background: #ede4da; }
@@ -315,8 +328,8 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
         <label>Project Name (Site Name)
           <input type="text" id="projectName" placeholder="e.g. Skyline Tower B" />
         </label>
-        <label>Project Location
-          <input type="text" id="projectLocation" placeholder="e.g. Wakad, Pune" />
+        <label>Project Location (Google Maps Link or Area)
+          <input type="text" id="projectLocation" placeholder="https://maps.app.goo.gl/... or Wakad, Pune" />
         </label>
       </div>
       <div class="form-row-3">
@@ -562,6 +575,36 @@ function formatRemarkLogSummary(c) {
   return logs
     .map(item => `[${fmtDateTime(item.at)}] ${item.text || ""}${item.by ? ` (${item.by})` : ""}`)
     .join(" | ");
+}
+
+/* ============ MAP LINK HELPERS ============ */
+function getSafeMapUrl(val) {
+  const raw = String(val ?? "").trim();
+  if (!raw) return null;
+  if (/^https?:\/\//i.test(raw)) {
+    try {
+      const parsed = new URL(raw);
+      if (parsed.protocol === "https:" || parsed.protocol === "http:") {
+        return parsed.href;
+      }
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+function formatProjectLocationCell(val) {
+  const raw = String(val ?? "").trim();
+  if (!raw) return "";
+
+  const directUrl = getSafeMapUrl(raw);
+  if (directUrl) {
+    return `<a class="map-link" href="${escapeHtml(directUrl)}" target="_blank" rel="noopener noreferrer" title="${escapeHtml(raw)}">📍 Open Map</a>`;
+  }
+
+  const searchUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(raw)}`;
+  return `<a class="map-link" href="${escapeHtml(searchUrl)}" target="_blank" rel="noopener noreferrer" title="Search on Google Maps: ${escapeHtml(raw)}">📍 ${escapeHtml(raw)}</a>`;
 }
 
 /* ============ LOAD STAGE MAP ============ */
@@ -996,7 +1039,7 @@ function renderClients(allClients) {
         <td title="${escapeHtml(c.client_address || "")}">${escapeHtml(c.client_address || "")}</td>
         <td>${escapeHtml(c.project_id || "")}</td>
         <td title="${escapeHtml(c.project_name || "")}">${escapeHtml(c.project_name || "")}</td>
-        <td title="${escapeHtml(c.project_location || "")}">${escapeHtml(c.project_location || "")}</td>
+        <td title="${escapeHtml(c.project_location || "")}">${formatProjectLocationCell(c.project_location)}</td>
         <td title="${escapeHtml(c.project_address || "")}">${escapeHtml(c.project_address || "")}</td>
         <td title="${escapeHtml(c.builder_name || "")}">${escapeHtml(c.builder_name || "")}</td>
         <td title="${escapeHtml(c.architect || "")}">${escapeHtml(c.architect || "")}</td>
