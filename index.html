@@ -90,23 +90,29 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 .client-form button[type=submit]:hover { background: #52321c; }
 .client-form button.secondary { background: #ede4da; color: #52321c; border: none; padding: 12px 26px; border-radius: 7px; cursor: pointer; font-weight: 700; font-size: 14px; }
 
-.template-block { background: #faf6f1; border: 1px dashed #a67c52; border-radius: 10px; padding: 18px; display: flex; flex-direction: column; gap: 14px; }
-.template-block h4 { color: #6b4226; font-size: 15px; margin-bottom: 4px; }
-.template-block .hint { font-size: 12px; color: #8a7565; font-weight: 400; }
-.template-block textarea { width: 100%; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.5; background: #fff; min-height: 120px; }
-.save-tpl-btn { background: #1a73e8; color: #fff; border: none; padding: 9px 18px; border-radius: 7px; cursor: pointer; font-weight: 700; font-size: 13px; align-self: flex-start; }
-.save-tpl-btn:hover { background: #1558b0; }
-
+/* Manage Stages */
 .stage-mgmt-toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
 .stage-mgmt-toolbar input { flex: 1; min-width: 200px; padding: 10px 14px; border: 1px solid #d0c8c0; border-radius: 8px; font-size: 14px; background: #fff; }
 .add-stage-btn { background: #2d8e47; color: #fff; border: none; padding: 11px 20px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 14px; }
 .add-stage-btn:hover { background: #247239; }
+
 #stageManageTable { width: 100%; border-collapse: collapse; background: #fff; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 14px rgba(107,66,38,.08); }
 #stageManageTable th { background: #f3ece4; color: #52321c; padding: 12px 10px; text-align: left; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; font-weight: 700; }
-#stageManageTable td { padding: 8px 10px; border-bottom: 1px solid #ede4da; }
+#stageManageTable td { padding: 8px 10px; border-bottom: 1px solid #ede4da; vertical-align: top; }
 #stageManageTable tr:hover { background: #faf6f1; }
-#stageManageTable input[type=text], #stageManageTable select { width: 100%; padding: 8px 10px; border: 1px solid #d0c8c0; border-radius: 6px; font-size: 13px; background: #fdfbf9; }
-#stageManageTable input[type=text]:focus, #stageManageTable select:focus { outline: none; border-color: #6b4226; background: #fff; }
+#stageManageTable input[type=text], #stageManageTable select {
+  width: 100%; padding: 8px 10px; border: 1px solid #d0c8c0;
+  border-radius: 6px; font-size: 13px; background: #fdfbf9;
+}
+#stageManageTable textarea {
+  width: 100%; padding: 8px 10px; border: 1px solid #d0c8c0;
+  border-radius: 6px; font-size: 12px; background: #fdfbf9;
+  font-family: 'Courier New', monospace; line-height: 1.45;
+  min-height: 110px;
+}
+#stageManageTable input[type=text]:focus, #stageManageTable select:focus, #stageManageTable textarea:focus {
+  outline: none; border-color: #6b4226; background: #fff;
+}
 #stageManageTable .row-delete { background: #c62828; color: #fff; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 700; }
 #stageManageTable .row-save { background: #1a73e8; color: #fff; border: none; padding: 6px 12px; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 700; margin-right: 4px; }
 .save-all-btn { background: #6b4226; color: #fff; border: none; padding: 13px 28px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 15px; margin-top: 18px; }
@@ -187,17 +193,9 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
     <div class="table-wrap">
       <table id="clientsTable">
         <thead><tr>
-          <th>Date Added</th>
-          <th>Stage</th>
-          <th>To-Do</th>
-          <th>Follow-up Date</th>
-          <th>Company / Project</th>
-          <th>Contact</th>
-          <th>Phone</th>
-          <th>Email</th>
-          <th>Owner</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th>Date Added</th><th>Stage</th><th>To-Do</th><th>Follow-up Date</th>
+          <th>Company / Project</th><th>Contact</th><th>Phone</th><th>Email</th>
+          <th>Owner</th><th>Status</th><th>Actions</th>
         </tr></thead>
         <tbody></tbody>
       </table>
@@ -238,19 +236,6 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
       <label>Project Notes
         <textarea id="notes" rows="2" placeholder="e.g. 12 teak veneer doors, site visit done…"></textarea>
       </label>
-
-      <div class="template-block">
-        <h4>📝 Pre-Drafted Messages</h4>
-        <p class="hint">
-          Placeholders: <code>{contact}</code> · <code>{company}</code> ·
-          <code>{phone}</code> · <code>{email}</code> · <code>{stage}</code> ·
-          <code>{todo}</code> · <code>{followup}</code> · <code>{notes}</code>
-        </p>
-        <label>💬 WhatsApp Template <textarea id="waTemplate" rows="6"></textarea></label>
-        <label>✉ Email Template <textarea id="emailTemplate" rows="6"></textarea></label>
-        <button type="button" id="saveTemplatesBtn" class="save-tpl-btn">💾 Save Templates</button>
-      </div>
-
       <div class="form-actions">
         <button type="submit">💾 Save Client</button>
         <button type="button" id="cancelEdit" class="secondary">Cancel</button>
@@ -259,10 +244,11 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
     </form>
   </section>
 
+  <!-- MANAGE STAGES -->
   <section id="tab-manageStages" class="tab-panel">
-    <h2>⚙️ Manage Stages & To-Dos</h2>
+    <h2>⚙️ Manage Stages, To-Dos & Messages</h2>
     <p style="color:#6b5d52;margin-bottom:16px;font-size:14px">
-      Edit any row directly. Click <b>💾 Save All</b> when done.
+      Each stage has its own WhatsApp & Email template. The template used for a client is picked from the client's <b>current stage</b>. Click <b>💾 Save</b> on a row or <b>💾 Save All</b> at the bottom.
     </p>
     <div class="stage-mgmt-toolbar">
       <input type="text" id="newStageName" placeholder="New stage name (e.g. 35. Follow-up Call)" />
@@ -275,8 +261,13 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
     </div>
     <table id="stageManageTable">
       <thead><tr>
-        <th style="width:30px">#</th><th>Stage</th><th>To-Do</th>
-        <th style="width:120px">Group</th><th style="width:150px">Actions</th>
+        <th style="width:30px">#</th>
+        <th style="width:180px">Stage</th>
+        <th style="width:180px">To-Do</th>
+        <th style="width:90px">Group</th>
+        <th>💬 WhatsApp Template</th>
+        <th>✉ Email Template</th>
+        <th style="width:150px">Actions</th>
       </tr></thead>
       <tbody></tbody>
     </table>
@@ -296,16 +287,17 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
 const ADMIN_EMAIL = "salereviewmanagement@gmail.com";
 
 /* ============ GLOBAL STATE ============ */
-let stageMap         = [];
+let stageMap         = [];    // [{id, stage, todo, grp, sort_order, wa_template, email_template}]
 let stageToTodo      = {};
+let stageToWA        = {};
+let stageToEmail     = {};
 let deadStages       = new Set();
 let currentClients   = [];
 let currentUser      = null;
 let currentRole      = "salesperson";
-let waTemplate       = "";
-let emailTemplate    = "";
 
-const DEFAULT_WA_TPL =
+/* Global fallback used when a stage has no template yet */
+const FALLBACK_WA_TPL =
 `*Greetings from SRM Doors!*
 
 *Kind Attention:* *{contact}*
@@ -321,7 +313,7 @@ const DEFAULT_WA_TPL =
 
 SRM Doors — Quality You Can Trust`;
 
-const DEFAULT_EMAIL_TPL =
+const FALLBACK_EMAIL_TPL =
 `Greetings from SRM Doors!
 
 Kind Attention: {contact}
@@ -344,9 +336,6 @@ const loginForm   = document.getElementById("loginForm");
 const loginBtn    = document.getElementById("loginBtn");
 const clientForm  = document.getElementById("clientForm");
 const toastContainer = document.getElementById("toastContainer");
-const waTemplateEl    = document.getElementById("waTemplate");
-const emailTemplateEl = document.getElementById("emailTemplate");
-const saveTplBtn      = document.getElementById("saveTemplatesBtn");
 const stageSelect     = document.getElementById("doneStage");
 const todoSelect      = document.getElementById("todoStage");
 
@@ -381,17 +370,26 @@ async function loadStageMap() {
     .from("stage_map").select("*").order("sort_order", { ascending: true });
   if (error) { toast("Failed to load stages: " + error.message, "error"); return; }
   stageMap = data || [];
-  stageToTodo = {};
-  deadStages  = new Set();
+
+  stageToTodo  = {};
+  stageToWA    = {};
+  stageToEmail = {};
+  deadStages   = new Set();
+
   stageMap.forEach(r => {
-    stageToTodo[r.stage] = r.todo;
+    stageToTodo[r.stage]  = r.todo;
+    stageToWA[r.stage]    = r.wa_template    || FALLBACK_WA_TPL;
+    stageToEmail[r.stage] = r.email_template || FALLBACK_EMAIL_TPL;
     if (r.grp === "dead") deadStages.add(r.stage);
   });
+
   populateStageDropdowns();
   renderStageManageTable();
   renderDashboard(currentClients);
 }
-function todoForStage(stage) { return stageToTodo[stage] || ""; }
+function todoForStage(stage)   { return stageToTodo[stage]  || ""; }
+function waForStage(stage)     { return stageToWA[stage]    || FALLBACK_WA_TPL; }
+function emailForStage(stage)  { return stageToEmail[stage] || FALLBACK_EMAIL_TPL; }
 
 function populateStageDropdowns() {
   stageSelect.innerHTML = `<option value="">— select stage —</option>` +
@@ -443,7 +441,6 @@ async function showApp(user) {
   appScreen.classList.add("active");
 
   await loadStageMap();
-  await loadTemplates();
   await refreshAll();
 }
 
@@ -462,34 +459,7 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
   });
 });
 
-/* ============ TEMPLATES ============ */
-async function loadTemplates() {
-  const { data, error } = await supabaseClient
-    .from("settings").select("wa_template, email_template").eq("id", 1).single();
-  if (error || !data) {
-    waTemplate = DEFAULT_WA_TPL;
-    emailTemplate = DEFAULT_EMAIL_TPL;
-  } else {
-    waTemplate    = data.wa_template    || DEFAULT_WA_TPL;
-    emailTemplate = data.email_template || DEFAULT_EMAIL_TPL;
-  }
-  waTemplateEl.value = waTemplate;
-  emailTemplateEl.value = emailTemplate;
-}
-
-saveTplBtn.addEventListener("click", async () => {
-  const wa = waTemplateEl.value.trim();
-  const em = emailTemplateEl.value.trim();
-  if (!wa || !em) { toast("Both templates are required", "error"); return; }
-  const { error } = await supabaseClient
-    .from("settings")
-    .update({ wa_template: wa, email_template: em, updated_at: new Date().toISOString() })
-    .eq("id", 1);
-  if (error) { toast("Save failed: " + error.message, "error"); return; }
-  waTemplate = wa; emailTemplate = em;
-  toast("Templates saved", "success");
-});
-
+/* ============ TEMPLATE FILL ============ */
 function fillTemplate(tpl, c) {
   const stage = c.done_stage || "";
   const todo  = c.todo_stage || todoForStage(stage) || "";
@@ -621,7 +591,7 @@ function renderClients(clients) {
     b.addEventListener("click", () => openWhatsApp(b.dataset.id)));
 }
 
-/* ============ APPROVE (one-way) ============ */
+/* ============ APPROVE ============ */
 async function approveClient(id) {
   if (!confirm("Approve this client? This cannot be undone.")) return;
   const { error } = await supabaseClient
@@ -637,12 +607,9 @@ async function approveClient(id) {
   await refreshAll();
 }
 
-/* ============ COPY ROW TO ANOTHER USER (ADMIN ONLY) ============ */
+/* ============ COPY ============ */
 async function copyClientToUser(id) {
-  if (!isAdminUser()) {
-    toast("Only " + ADMIN_EMAIL + " can copy rows", "error");
-    return;
-  }
+  if (!isAdminUser()) { toast("Only " + ADMIN_EMAIL + " can copy rows", "error"); return; }
   const c = currentClients.find(x => x.id === id);
   if (!c) return;
 
@@ -686,10 +653,7 @@ async function copyClientToUser(id) {
 
 /* ============ EXPORT EXCEL ============ */
 document.getElementById("exportExcelBtn").addEventListener("click", () => {
-  if (currentClients.length === 0) {
-    toast("No clients to export", "error");
-    return;
-  }
+  if (currentClients.length === 0) { toast("No clients to export", "error"); return; }
   const rows = currentClients.map(c => ({
     "Date Added":     fmtDate(c.created_at),
     "Stage":          c.done_stage || "",
@@ -716,20 +680,24 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
   toast("Excel downloaded", "success");
 });
 
-/* ============ EMAIL / WHATSAPP ============ */
+/* ============ EMAIL / WHATSAPP (per-stage template) ============ */
 function openEmail(id) {
   const c = currentClients.find(x => x.id === id);
   if (!c || !c.email) return;
-  const subject = encodeURIComponent(`SRM Doors — ${c.done_stage || "Update"} — ${c.company || ""}`);
-  const body = encodeURIComponent(fillTemplate(emailTemplate, c));
+  const stage = c.done_stage || "";
+  const tpl   = emailForStage(stage);          // ← picks this stage's template
+  const subject = encodeURIComponent(`SRM Doors — ${stage || "Update"} — ${c.company || ""}`);
+  const body = encodeURIComponent(fillTemplate(tpl, c));
   window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(c.email)}&su=${subject}&body=${body}`, "_blank");
 }
 function openWhatsApp(id) {
   const c = currentClients.find(x => x.id === id);
   if (!c) return;
+  const stage = c.done_stage || "";
+  const tpl   = waForStage(stage);              // ← picks this stage's template
   let phone = String(c.phone || "").replace(/\D/g, "");
   if (!phone.startsWith("91")) phone = "91" + phone;
-  const text = encodeURIComponent(fillTemplate(waTemplate, c));
+  const text = encodeURIComponent(fillTemplate(tpl, c));
   window.open(`https://web.whatsapp.com/send?phone=${phone}&text=${text}`, "_blank");
 }
 
@@ -792,10 +760,7 @@ function loadForEdit(id) {
 }
 
 async function deleteClient(id) {
-  if (!isAdminUser()) {
-    toast("Only " + ADMIN_EMAIL + " can delete clients", "error");
-    return;
-  }
+  if (!isAdminUser()) { toast("Only " + ADMIN_EMAIL + " can delete clients", "error"); return; }
   if (!confirm("Delete this project permanently?")) return;
   const { error } = await supabaseClient.from("clients").delete().eq("id", id);
   if (error) { toast("Delete failed: " + error.message, "error"); return; }
@@ -808,20 +773,20 @@ function resetForm() {
   document.getElementById("clientId").value = "";
   document.getElementById("formMsg").textContent = "";
   document.getElementById("formTitle").textContent = "➕ Add New Client / Project";
-  waTemplateEl.value    = waTemplate;
-  emailTemplateEl.value = emailTemplate;
   todoSelect.innerHTML  = `<option value="">— none —</option>`;
 }
 
-/* ============ MANAGE STAGES ============ */
+/* ============ MANAGE STAGES (with per-stage templates) ============ */
 function renderStageManageTable() {
   const tbody = document.querySelector("#stageManageTable tbody");
   tbody.innerHTML = "";
   if (stageMap.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="5" class="empty-row">No stages yet — add one above</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="7" class="empty-row">No stages yet — add one above</td></tr>`;
     return;
   }
   stageMap.forEach((r, i) => {
+    const wa    = r.wa_template    || FALLBACK_WA_TPL;
+    const email = r.email_template || FALLBACK_EMAIL_TPL;
     tbody.insertAdjacentHTML("beforeend", `
       <tr data-id="${r.id}">
         <td style="text-align:center;color:#8a7565;font-size:12px">${i + 1}</td>
@@ -833,6 +798,8 @@ function renderStageManageTable() {
             <option value="dead"   ${r.grp === "dead"   ? "selected" : ""}>Dead</option>
           </select>
         </td>
+        <td><textarea class="edit-wa">${escapeHtml(wa)}</textarea></td>
+        <td><textarea class="edit-email">${escapeHtml(email)}</textarea></td>
         <td>
           <button class="row-save" data-id="${r.id}">💾 Save</button>
           <button class="row-delete" data-id="${r.id}">🗑</button>
@@ -852,9 +819,16 @@ async function saveRow(id) {
   const stage = tr.querySelector(".edit-stage").value.trim();
   const todo  = tr.querySelector(".edit-todo").value.trim();
   const grp   = tr.querySelector(".edit-group").value;
+  const wa    = tr.querySelector(".edit-wa").value;
+  const email = tr.querySelector(".edit-email").value;
+
   if (!stage || !todo) { toast("Stage and To-Do cannot be empty", "error"); return; }
+
   const { error } = await supabaseClient
-    .from("stage_map").update({ stage, todo, grp }).eq("id", id);
+    .from("stage_map")
+    .update({ stage, todo, grp, wa_template: wa, email_template: email })
+    .eq("id", id);
+
   if (error) { toast("Save failed: " + error.message, "error"); return; }
   toast("Stage updated", "success");
   await loadStageMap();
@@ -875,7 +849,9 @@ document.getElementById("addStageBtn").addEventListener("click", async () => {
   if (!stage || !todo) { toast("Stage and To-Do are required", "error"); return; }
   const maxOrder = stageMap.reduce((m, r) => Math.max(m, r.sort_order || 0), 0);
   const { error } = await supabaseClient.from("stage_map").insert([{
-    stage, todo, grp, sort_order: maxOrder + 1
+    stage, todo, grp, sort_order: maxOrder + 1,
+    wa_template:    FALLBACK_WA_TPL,
+    email_template: FALLBACK_EMAIL_TPL
   }]);
   if (error) { toast("Add failed: " + error.message, "error"); return; }
   document.getElementById("newStageName").value = "";
@@ -892,7 +868,9 @@ document.getElementById("saveAllStagesBtn").addEventListener("click", async () =
       id:    tr.dataset.id,
       stage: tr.querySelector(".edit-stage").value.trim(),
       todo:  tr.querySelector(".edit-todo").value.trim(),
-      grp:   tr.querySelector(".edit-group").value
+      grp:   tr.querySelector(".edit-group").value,
+      wa:    tr.querySelector(".edit-wa").value,
+      email: tr.querySelector(".edit-email").value
     });
   });
   if (updates.some(u => !u.stage || !u.todo)) {
@@ -902,7 +880,12 @@ document.getElementById("saveAllStagesBtn").addEventListener("click", async () =
   let failed = 0;
   for (const u of updates) {
     const { error } = await supabaseClient
-      .from("stage_map").update({ stage: u.stage, todo: u.todo, grp: u.grp }).eq("id", u.id);
+      .from("stage_map")
+      .update({
+        stage: u.stage, todo: u.todo, grp: u.grp,
+        wa_template: u.wa, email_template: u.email
+      })
+      .eq("id", u.id);
     if (error) failed++;
   }
   if (failed > 0) toast(`${failed} row(s) failed to save`, "error");
