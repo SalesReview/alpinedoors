@@ -399,7 +399,7 @@ const SUPABASE_URL = "https://wahxxiwtutjwxtedcedb.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable__S08Yx-z66ewIrpwSx7w5Q_9kk94BFK";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
-const ADMIN_EMAIL = "salereviewmanagement@gmail.com";
+const ADMIN_EMAIL = "salesreviewmanagement@gmail.com";
 
 /* ============ STATE ============ */
 let stageMap = [];
@@ -493,7 +493,7 @@ function fmtDateTime(d) {
 function daysAgo(n) { const d = new Date(); d.setDate(d.getDate() - n); return d; }
 function isAdminUser() {
   const email = (currentUser?.email || "").trim().toLowerCase();
-  return email === ADMIN_EMAIL.toLowerCase() || String(currentRole || "").toLowerCase() === "admin";
+  return email === ADMIN_EMAIL.toLowerCase() || String(currentRole || "").trim().toLowerCase() === "admin";
 }
 function syncFormDeleteButtonVisibility() {
   const id = document.getElementById("clientId").value;
