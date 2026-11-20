@@ -27,10 +27,26 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 .app-header { display: flex; justify-content: space-between; align-items: center; background: #6b4226; color: #fff; padding: 14px 24px; box-shadow: 0 2px 10px rgba(0,0,0,.18); position: sticky; top: 0; z-index: 50; }
 .app-header h1 { font-size: 19px; font-weight: 700; }
 .app-header h1 span { color: #e8d5b7; font-weight: 400; }
-.user-info { display: flex; align-items: center; gap: 10px; font-size: 14px; }
+.user-info { display: flex; align-items: center; gap: 10px; font-size: 14px; flex-wrap: wrap; }
 .badge { background: rgba(255,255,255,.18); padding: 4px 11px; border-radius: 20px; font-size: 11px; text-transform: uppercase; letter-spacing: .8px; font-weight: 600; }
+.pwd-btn { background: rgba(255,255,255,.16); color: #fff; border: 1px solid rgba(255,255,255,.35); padding: 7px 13px; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 13px; }
+.pwd-btn:hover { background: rgba(255,255,255,.26); }
 .logout-btn { background: #e8d5b7; color: #6b4226; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-weight: 700; font-size: 13px; }
 .logout-btn:hover { background: #fff; }
+
+.modal-backdrop { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 2000; align-items: center; justify-content: center; padding: 16px; }
+.modal-backdrop.open { display: flex; }
+.modal-card { background: #fff; border-radius: 12px; width: 100%; max-width: 390px; padding: 26px 28px; box-shadow: 0 14px 40px rgba(0,0,0,.3); border-top: 4px solid #6b4226; }
+.modal-card h3 { color: #3a2a1e; font-size: 18px; margin-bottom: 6px; }
+.modal-card p.modal-sub { color: #777; font-size: 13px; margin-bottom: 16px; }
+.modal-card label { display: flex; flex-direction: column; gap: 6px; font-size: 13px; font-weight: 600; color: #52321c; margin-bottom: 12px; }
+.modal-card input { width: 100%; padding: 11px 12px; border: 1px solid #d0c8c0; border-radius: 8px; font-size: 14px; background: #fdfbf9; }
+.modal-card input:focus { outline: none; border-color: #6b4226; background: #fff; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 8px; }
+.modal-btn-cancel { background: #ede4da; color: #52321c; border: none; padding: 10px 18px; border-radius: 7px; font-weight: 700; font-size: 13px; cursor: pointer; }
+.modal-btn-save { background: #6b4226; color: #fff; border: none; padding: 10px 20px; border-radius: 7px; font-weight: 700; font-size: 13px; cursor: pointer; }
+.modal-btn-save:hover { background: #52321c; }
+.modal-btn-save:disabled { background: #b8a898; cursor: not-allowed; }
 
 .tabs { display: flex; gap: 2px; background: #fff; padding: 0 24px; border-bottom: 1px solid #e5ddd5; position: sticky; top: 63px; z-index: 40; overflow-x: auto; }
 .tab-btn { background: none; border: none; padding: 15px 22px; cursor: pointer; font-size: 14px; color: #6b5d52; border-bottom: 3px solid transparent; font-weight: 500; white-space: nowrap; }
@@ -175,7 +191,8 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
     <div class="user-info">
       <span id="userEmail"></span>
       <span id="userRole" class="badge">user</span>
-      <button id="logoutBtn" class="logout-btn">Logout</button>
+      <button id="changePasswordBtn" type="button" class="pwd-btn">🔑 Change Password</button>
+      <button id="logoutBtn" type="button" class="logout-btn">Logout</button>
     </div>
   </header>
 
@@ -391,6 +408,26 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
   </section>
 </div>
 
+<div id="changePasswordModal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="pwdModalTitle">
+  <div class="modal-card">
+    <h3 id="pwdModalTitle">🔑 Change Password</h3>
+    <p class="modal-sub">Set a new password for your account (minimum 6 characters).</p>
+    <form id="changePasswordForm">
+      <label>New Password
+        <input type="password" id="newPasswordInput" autocomplete="new-password" minlength="6" required placeholder="Enter new password" />
+      </label>
+      <label>Confirm New Password
+        <input type="password" id="confirmPasswordInput" autocomplete="new-password" minlength="6" required placeholder="Re-enter new password" />
+      </label>
+      <p id="passwordModalError" class="error"></p>
+      <div class="modal-actions">
+        <button type="button" id="cancelPasswordBtn" class="modal-btn-cancel">Cancel</button>
+        <button type="submit" id="savePasswordBtn" class="modal-btn-save">Update Password</button>
+      </div>
+    </form>
+  </div>
+</div>
+
 <div id="toastContainer"></div>
 
 <script>
@@ -460,6 +497,12 @@ const todoSelect = document.getElementById("todoStage");
 const searchInput = document.getElementById("globalSearch");
 const resultCountEl = document.getElementById("resultCount");
 const theadRow = document.getElementById("clientsTheadRow");
+const changePasswordModal = document.getElementById("changePasswordModal");
+const changePasswordForm = document.getElementById("changePasswordForm");
+const newPasswordInput = document.getElementById("newPasswordInput");
+const confirmPasswordInput = document.getElementById("confirmPasswordInput");
+const passwordModalError = document.getElementById("passwordModalError");
+const savePasswordBtn = document.getElementById("savePasswordBtn");
 
 /* ============ UTILITIES ============ */
 function toast(msg, type = "info", duration = 3000) {
@@ -556,7 +599,7 @@ stageSelect.addEventListener("change", () => {
   if (todo) todoSelect.value = todo;
 });
 
-/* ============ AUTH ============ */
+/* ============ AUTH & PASSWORD CHANGE ============ */
 loginForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const email = document.getElementById("loginEmail").value.trim();
@@ -573,9 +616,60 @@ loginForm.addEventListener("submit", async (e) => {
 document.getElementById("logoutBtn").addEventListener("click", async () => {
   await supabaseClient.auth.signOut();
   currentUser = null;
+  changePasswordModal.classList.remove("open");
   appScreen.classList.remove("active");
   loginScreen.classList.add("active");
   toast("Logged out", "info");
+});
+
+function openPasswordModal() {
+  changePasswordForm.reset();
+  passwordModalError.textContent = "";
+  changePasswordModal.classList.add("open");
+  newPasswordInput.focus();
+}
+
+function closePasswordModal() {
+  changePasswordModal.classList.remove("open");
+  changePasswordForm.reset();
+  passwordModalError.textContent = "";
+}
+
+document.getElementById("changePasswordBtn").addEventListener("click", openPasswordModal);
+document.getElementById("cancelPasswordBtn").addEventListener("click", closePasswordModal);
+changePasswordModal.addEventListener("click", (e) => {
+  if (e.target === changePasswordModal) closePasswordModal();
+});
+
+changePasswordForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  passwordModalError.textContent = "";
+  const newPassword = newPasswordInput.value;
+  const confirmPassword = confirmPasswordInput.value;
+
+  if (newPassword.length < 6) {
+    passwordModalError.textContent = "Password must be at least 6 characters.";
+    return;
+  }
+  if (newPassword !== confirmPassword) {
+    passwordModalError.textContent = "Passwords do not match.";
+    return;
+  }
+
+  savePasswordBtn.disabled = true;
+  savePasswordBtn.textContent = "Updating…";
+  const { error } = await supabaseClient.auth.updateUser({ password: newPassword });
+  savePasswordBtn.disabled = false;
+  savePasswordBtn.textContent = "Update Password";
+
+  if (error) {
+    passwordModalError.textContent = error.message;
+    toast("Password update failed: " + error.message, "error");
+    return;
+  }
+
+  closePasswordModal();
+  toast("Password updated successfully ✓", "success");
 });
 
 async function showApp(user) {
