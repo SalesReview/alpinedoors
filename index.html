@@ -36,7 +36,7 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 .tab-btn { background: none; border: none; padding: 15px 22px; cursor: pointer; font-size: 14px; color: #6b5d52; border-bottom: 3px solid transparent; font-weight: 500; white-space: nowrap; }
 .tab-btn:hover { color: #6b4226; }
 .tab-btn.active { color: #6b4226; border-bottom-color: #6b4226; font-weight: 700; }
-.tab-panel { display: none; padding: 24px; max-width: 1400px; margin: 0 auto; }
+.tab-panel { display: none; padding: 24px; max-width: 1500px; margin: 0 auto; }
 .tab-panel.active { display: block; }
 .tab-panel h2 { font-size: 20px; margin-bottom: 18px; color: #3a2a1e; }
 
@@ -67,13 +67,14 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 .result-count { font-size: 13px; color: #6b5d52; font-weight: 600; }
 
 .table-wrap { overflow-x: auto; background: #fff; border-radius: 12px; padding: 6px; box-shadow: 0 2px 14px rgba(107,66,38,.08); }
-#clientsTable { width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 1550px; }
-#clientsTable th, #clientsTable td { padding: 11px 10px; border-bottom: 1px solid #ede4da; text-align: left; white-space: nowrap; }
+#clientsTable { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 2750px; }
+#clientsTable th, #clientsTable td { padding: 10px 9px; border-bottom: 1px solid #ede4da; text-align: left; white-space: nowrap; max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
 #clientsTable th { background: #f3ece4; font-weight: 700; color: #52321c; position: sticky; top: 0; user-select: none; }
 #clientsTable tbody tr:hover { background: #faf6f1; }
 #clientsTable td.overdue { background: #fdecea; color: #b71c1c; font-weight: 700; }
 #clientsTable tr.approved-row { background: #e8f5e9; }
 #clientsTable tr.approved-row:hover { background: #d7ecdb; }
+.remark-log-cell { font-size: 11.5px; color: #52321c; white-space: normal !important; min-width: 220px; max-width: 300px !important; line-height: 1.35; }
 
 .th-inner { display: flex; align-items: center; gap: 6px; position: relative; }
 .filter-btn { background: none; border: 1px solid #c8bfb5; color: #6b4226; padding: 2px 7px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 700; line-height: 1; }
@@ -90,7 +91,7 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 .filter-popup .fp-actions { display: flex; justify-content: space-between; padding: 8px 12px; border-top: 1px solid #ede4da; margin-top: 4px; }
 .filter-popup .fp-actions button { background: none; border: none; color: #1a73e8; cursor: pointer; font-weight: 700; font-size: 12px; }
 
-#clientsTable .action-cell { white-space: nowrap; display: flex; gap: 4px; align-items: center; }
+#clientsTable .action-cell { white-space: nowrap; display: flex; gap: 4px; align-items: center; max-width: none; overflow: visible; }
 #clientsTable .action-cell button { padding: 6px 10px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 4px; }
 #clientsTable .action-cell button:hover { filter: brightness(1.1); }
 .edit-btn { background: #d4a548; color: #fff; }
@@ -102,11 +103,17 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 .approved-label { display: inline-block; background: #a5d6a7; color: #1b5e20; padding: 5px 10px; border-radius: 5px; font-size: 11px; font-weight: 800; letter-spacing: .5px; text-transform: uppercase; border: 1px solid #81c784; }
 .empty-row { text-align: center; color: #999; padding: 30px !important; font-style: italic; }
 
-.client-form { max-width: 780px; background: #fff; padding: 28px; border-radius: 12px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 2px 14px rgba(107,66,38,.08); border-top: 3px solid #a67c52; }
+.client-form { max-width: 920px; background: #fff; padding: 28px; border-radius: 12px; display: flex; flex-direction: column; gap: 16px; box-shadow: 0 2px 14px rgba(107,66,38,.08); border-top: 3px solid #a67c52; }
+.form-section-title { font-size: 14px; font-weight: 700; color: #6b4226; text-transform: uppercase; letter-spacing: .6px; border-bottom: 1px solid #ede4da; padding-bottom: 6px; margin-top: 4px; }
 .client-form label { display: flex; flex-direction: column; font-size: 14px; gap: 6px; color: #52321c; font-weight: 600; }
 .client-form input, .client-form select, .client-form textarea { padding: 11px 12px; border: 1px solid #d0c8c0; border-radius: 7px; font-size: 14px; font-family: inherit; background: #fdfbf9; }
 .client-form input:focus, .client-form select:focus, .client-form textarea:focus { outline: none; border-color: #6b4226; box-shadow: 0 0 0 3px rgba(107,66,38,.1); background: #fff; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-row-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+.remark-history-box { background: #faf6f1; border: 1px solid #e5ddd5; border-radius: 8px; padding: 12px 14px; max-height: 170px; overflow-y: auto; font-size: 12.5px; }
+.remark-history-item { padding: 6px 0; border-bottom: 1px dashed #e5ddd5; }
+.remark-history-item:last-child { border-bottom: none; }
+.remark-history-meta { font-size: 11px; color: #7a685b; font-weight: 600; }
 .form-actions { display: flex; gap: 10px; margin-top: 4px; }
 .client-form button[type=submit] { background: #6b4226; color: #fff; border: none; padding: 12px 26px; border-radius: 7px; cursor: pointer; font-weight: 700; font-size: 14px; }
 .client-form button[type=submit]:hover { background: #52321c; }
@@ -137,7 +144,7 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 
 @media (max-width: 800px) {
   .dashboard-grid { grid-template-columns: 1fr; }
-  .form-row { grid-template-columns: 1fr; }
+  .form-row, .form-row-3 { grid-template-columns: 1fr; }
   .app-header { flex-direction: column; gap: 10px; text-align: center; }
   .tabs { overflow-x: auto; padding: 0 12px; }
   .tab-panel { padding: 16px; }
@@ -214,9 +221,24 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
             <th data-col="todo_stage">To-Do <button class="filter-btn" data-col="todo_stage">▾</button></th>
             <th data-col="followup_date">Follow-up Date <button class="filter-btn" data-col="followup_date">▾</button></th>
             <th data-col="company">Company / Project <button class="filter-btn" data-col="company">▾</button></th>
-            <th data-col="contact">Contact <button class="filter-btn" data-col="contact">▾</button></th>
+            <th data-col="contact">Contact Person <button class="filter-btn" data-col="contact">▾</button></th>
             <th data-col="phone">Phone <button class="filter-btn" data-col="phone">▾</button></th>
             <th data-col="email">Email <button class="filter-btn" data-col="email">▾</button></th>
+            <th data-col="client_name">Client Name <button class="filter-btn" data-col="client_name">▾</button></th>
+            <th data-col="client_location">Client Location <button class="filter-btn" data-col="client_location">▾</button></th>
+            <th data-col="client_address">Client Address <button class="filter-btn" data-col="client_address">▾</button></th>
+            <th data-col="project_id">Project ID <button class="filter-btn" data-col="project_id">▾</button></th>
+            <th data-col="project_name">Project Name <button class="filter-btn" data-col="project_name">▾</button></th>
+            <th data-col="project_location">Project Location <button class="filter-btn" data-col="project_location">▾</button></th>
+            <th data-col="project_address">Project Address <button class="filter-btn" data-col="project_address">▾</button></th>
+            <th data-col="builder_name">Builder Name <button class="filter-btn" data-col="builder_name">▾</button></th>
+            <th data-col="architect">Architect <button class="filter-btn" data-col="architect">▾</button></th>
+            <th data-col="other_contact">Other Contact <button class="filter-btn" data-col="other_contact">▾</button></th>
+            <th data-col="main_door_qty">Main Door Qty <button class="filter-btn" data-col="main_door_qty">▾</button></th>
+            <th data-col="bedroom_door_qty">Bedroom Door Qty <button class="filter-btn" data-col="bedroom_door_qty">▾</button></th>
+            <th data-col="toilet_door_qty">Toilet Door Qty <button class="filter-btn" data-col="toilet_door_qty">▾</button></th>
+            <th data-col="remark">Remark <button class="filter-btn" data-col="remark">▾</button></th>
+            <th data-col="remark_log">Remark Log <button class="filter-btn" data-col="remark_log">▾</button></th>
             <th data-col="assigned_to">Owner <button class="filter-btn" data-col="assigned_to">▾</button></th>
             <th data-col="approved">Status <button class="filter-btn" data-col="approved">▾</button></th>
             <th>Actions</th>
@@ -231,6 +253,8 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
     <h2 id="formTitle">➕ Add New Client / Project</h2>
     <form id="clientForm" class="client-form">
       <input type="hidden" id="clientId" />
+
+      <div class="form-section-title">Primary Lead & Contact</div>
       <div class="form-row">
         <label>Company / Project Name *
           <input type="text" id="companyName" required placeholder="e.g. Skyline Apartments" />
@@ -239,14 +263,69 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
           <input type="text" id="contactPerson" required placeholder="e.g. Mr. Sharma" />
         </label>
       </div>
-      <div class="form-row">
+      <div class="form-row-3">
         <label>Phone
           <input type="tel" id="phone" placeholder="e.g. 9876543210" />
         </label>
         <label>Email
           <input type="email" id="email" placeholder="name@company.com" />
         </label>
+        <label>Other Contact
+          <input type="text" id="otherContact" placeholder="Alt phone / email / person" />
+        </label>
       </div>
+
+      <div class="form-section-title">Client Details</div>
+      <div class="form-row-3">
+        <label>Client Name
+          <input type="text" id="clientName" placeholder="e.g. Skyline Developers Pvt Ltd" />
+        </label>
+        <label>Client Location
+          <input type="text" id="clientLocation" placeholder="e.g. Baner, Pune" />
+        </label>
+        <label>Client Address
+          <input type="text" id="clientAddress" placeholder="Full client office/billing address" />
+        </label>
+      </div>
+
+      <div class="form-section-title">Project & Site Details</div>
+      <div class="form-row-3">
+        <label>Project ID
+          <input type="text" id="projectId" placeholder="e.g. PRJ-2026-014" />
+        </label>
+        <label>Project Name (Site Name)
+          <input type="text" id="projectName" placeholder="e.g. Skyline Tower B" />
+        </label>
+        <label>Project Location
+          <input type="text" id="projectLocation" placeholder="e.g. Wakad, Pune" />
+        </label>
+      </div>
+      <div class="form-row-3">
+        <label>Project Address
+          <input type="text" id="projectAddress" placeholder="Site street / survey / landmark" />
+        </label>
+        <label>Builder Name
+          <input type="text" id="builderName" placeholder="e.g. Apex Builders" />
+        </label>
+        <label>Architect
+          <input type="text" id="architect" placeholder="e.g. Studio Design & Co." />
+        </label>
+      </div>
+
+      <div class="form-section-title">Door Quantities</div>
+      <div class="form-row-3">
+        <label>Main Door Qty
+          <input type="number" id="mainDoorQty" min="0" step="1" value="0" />
+        </label>
+        <label>Bedroom Door Qty
+          <input type="number" id="bedroomDoorQty" min="0" step="1" value="0" />
+        </label>
+        <label>Toilet Door Qty
+          <input type="number" id="toiletDoorQty" min="0" step="1" value="0" />
+        </label>
+      </div>
+
+      <div class="form-section-title">Pipeline, Follow-up & Remarks</div>
       <div class="form-row">
         <label>Stage *
           <select id="doneStage" required></select>
@@ -258,6 +337,13 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
       <label>Follow-up Date
         <input type="date" id="followupDate" />
       </label>
+      <label>Remark (Current Remark — logged automatically to history)
+        <input type="text" id="remarkInput" placeholder="e.g. Sample door approved, revision in main door size" />
+      </label>
+      <div id="remarkLogWrap" style="display:none;">
+        <label>Previous Remarks Log</label>
+        <div id="remarkLogHistory" class="remark-history-box"></div>
+      </div>
       <label>Project Notes
         <textarea id="notes" rows="2" placeholder="e.g. 12 teak veneer doors, site visit done…"></textarea>
       </label>
@@ -271,8 +357,11 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 
   <section id="tab-manageStages" class="tab-panel">
     <h2>⚙️ Manage Stages, To-Dos & Messages</h2>
-    <p style="color:#6b5d52;margin-bottom:16px;font-size:14px">
+    <p style="color:#6b5d52;margin-bottom:10px;font-size:14px">
       Each stage has its own WhatsApp & Email template. The template used for a client is picked from the client's <b>current stage</b>.
+    </p>
+    <p style="color:#6b5d52;margin-bottom:16px;font-size:12.5px">
+      Available placeholders: <code>{contact}</code>, <code>{contact_person}</code>, <code>{client_name}</code>, <code>{site_name}</code>, <code>{company}</code>, <code>{phone}</code>, <code>{email}</code>, <code>{stage}</code>, <code>{todo}</code>, <code>{followup}</code>, <code>{remark}</code>, <code>{notes}</code>
     </p>
     <div class="stage-mgmt-toolbar">
       <input type="text" id="newStageName" placeholder="New stage name" />
@@ -319,16 +408,16 @@ let currentClients = [];
 let currentUser = null;
 let currentRole = "salesperson";
 
-let activeFilters = {};     // { colKey: Set(values) }
+let activeFilters = {};
 let globalSearchTerm = "";
 let openFilterCol = null;
 
 const FALLBACK_WA_TPL =
 `*Greetings from SRM Doors!*
 
-*Kind Attention:* *{contact}*
-
-*Project:* {company}
+*Client Name:* {client_name}
+*Site / Project:* {site_name}
+*Kind Attention:* *{contact_person}*
 
 *Current Stage:* {stage}
 *Next Action:* {todo}
@@ -342,9 +431,9 @@ SRM Doors — Quality You Can Trust`;
 const FALLBACK_EMAIL_TPL =
 `Greetings from SRM Doors!
 
-Kind Attention: {contact}
-
-Project: {company}
+Client Name: {client_name}
+Site / Project: {site_name}
+Kind Attention: {contact_person}
 
 Current Stage: {stage}
 Next Action: {todo}
@@ -388,9 +477,36 @@ function fmtDate(d) {
   if (!d) return "";
   try { return new Date(d).toLocaleDateString("en-GB"); } catch { return ""; }
 }
+function fmtDateTime(d) {
+  if (!d) return "";
+  try {
+    return new Date(d).toLocaleString("en-GB", {
+      day: "2-digit", month: "short", year: "numeric",
+      hour: "2-digit", minute: "2-digit"
+    });
+  } catch { return ""; }
+}
 function daysAgo(n) { const d = new Date(); d.setDate(d.getDate() - n); return d; }
 function isAdminUser() {
-  return (currentUser?.email || "").toLowerCase() === ADMIN_EMAIL.toLowerCase();
+  const email = (currentUser?.email || "").trim().toLowerCase();
+  return email === ADMIN_EMAIL.toLowerCase() || String(currentRole || "").toLowerCase() === "admin";
+}
+function parseRemarkLog(rawLog) {
+  if (Array.isArray(rawLog)) return rawLog;
+  if (typeof rawLog === "string" && rawLog.trim()) {
+    try {
+      const parsed = JSON.parse(rawLog);
+      return Array.isArray(parsed) ? parsed : [];
+    } catch { return []; }
+  }
+  return [];
+}
+function formatRemarkLogSummary(c) {
+  const logs = parseRemarkLog(c.remark_log);
+  if (logs.length === 0) return c.remark || "";
+  return logs
+    .map(item => `[${fmtDateTime(item.at)}] ${item.text || ""}${item.by ? ` (${item.by})` : ""}`)
+    .join(" | ");
 }
 
 /* ============ LOAD STAGE MAP ============ */
@@ -488,14 +604,21 @@ document.querySelectorAll(".tab-btn").forEach(btn => {
 function fillTemplate(tpl, c) {
   const stage = c.done_stage || "";
   const todo = c.todo_stage || todoForStage(stage) || "";
+  const contactPerson = c.contact || "";
+  const clientName = c.client_name || c.company || "";
+  const siteName = c.project_name || c.company || "";
   const map = {
-    "{contact}": c.contact || "",
-    "{company}": c.company || "",
-    "{phone}": c.phone || "",
+    "{contact}": contactPerson,
+    "{contact_person}": contactPerson,
+    "{client_name}": clientName,
+    "{site_name}": siteName,
+    "{company}": c.company || siteName,
+    "{phone}": c.phone || c.other_contact || "",
     "{email}": c.email || "",
     "{stage}": stage,
     "{todo}": todo,
     "{followup}": fmtDate(c.followup_date),
+    "{remark}": c.remark || "",
     "{notes}": c.notes || ""
   };
   return Object.keys(map).reduce((acc, key) => acc.split(key).join(map[key]), tpl);
@@ -566,27 +689,34 @@ function getCellValueForFilter(c, col) {
   if (col === "assigned_to") return c.assigned_to || "(empty)";
   if (col === "done_stage") return c.done_stage || "(empty)";
   if (col === "todo_stage") return c.todo_stage || todoForStage(c.done_stage) || "(empty)";
+  if (col === "remark_log") return formatRemarkLogSummary(c) || "(empty)";
+  if (["main_door_qty", "bedroom_door_qty", "toilet_door_qty"].includes(col)) {
+    return String(c[col] ?? 0);
+  }
   return c[col] || "(empty)";
 }
 
 function getFilteredClients() {
   let list = currentClients.slice();
 
-  // Global search
   if (globalSearchTerm.trim()) {
     const q = globalSearchTerm.trim().toLowerCase();
     list = list.filter(c => {
       const fields = [
         c.company, c.contact, c.phone, c.email, c.notes,
+        c.remark, formatRemarkLogSummary(c),
+        c.main_door_qty, c.bedroom_door_qty, c.toilet_door_qty,
+        c.project_name, c.project_location, c.project_address,
+        c.client_name, c.client_location, c.client_address,
+        c.architect, c.project_id, c.other_contact, c.builder_name,
         c.done_stage, c.todo_stage || todoForStage(c.done_stage),
         c.assigned_to, c.approved ? "approved" : "pending",
         fmtDate(c.created_at), fmtDate(c.followup_date)
       ];
-      return fields.some(f => String(f || "").toLowerCase().includes(q));
+      return fields.some(f => String(f ?? "").toLowerCase().includes(q));
     });
   }
 
-  // Column filters
   Object.keys(activeFilters).forEach(col => {
     const selected = activeFilters[col];
     if (!selected || selected.size === 0) return;
@@ -608,12 +738,10 @@ function openFilterPopup(col, btn) {
   openFilterCol = col;
   btn.classList.add("active");
 
-  // Build list of unique values in current column from ALL clients (not filtered)
   const values = new Set();
   currentClients.forEach(c => values.add(getCellValueForFilter(c, col)));
   const sorted = [...values].sort();
 
-  // Determine current selection (or all selected by default)
   const currentSel = activeFilters[col] || new Set(sorted);
 
   const popup = document.createElement("div");
@@ -654,7 +782,7 @@ function openFilterPopup(col, btn) {
     const checked = new Set();
     listWrap.querySelectorAll("input[type=checkbox]:checked").forEach(cb => checked.add(cb.value));
     if (checked.size === 0 || checked.size === sorted.length) {
-      delete activeFilters[col];     // no filter
+      delete activeFilters[col];
     } else {
       activeFilters[col] = checked;
     }
@@ -662,13 +790,11 @@ function openFilterPopup(col, btn) {
     renderClients(currentClients);
   });
 
-  // Position under button
   const th = btn.parentElement;
   th.style.position = "relative";
   th.appendChild(popup);
 }
 
-// Attach filter buttons (event delegation, once)
 theadRow.addEventListener("click", (e) => {
   const btn = e.target.closest(".filter-btn");
   if (!btn) return;
@@ -685,6 +811,18 @@ document.addEventListener("click", (e) => {
 });
 
 /* ============ CLIENTS TABLE RENDER ============ */
+function renderRemarkLogHtml(c) {
+  const logs = parseRemarkLog(c.remark_log);
+  if (logs.length === 0) {
+    return `<span style="color:#999;">—</span>`;
+  }
+  return logs
+    .slice()
+    .reverse()
+    .map(item => `<div><b>${escapeHtml(fmtDateTime(item.at))}:</b> ${escapeHtml(item.text || "")}</div>`)
+    .join("");
+}
+
 function renderClients(allClients) {
   const clients = getFilteredClients();
   const tbody = document.querySelector("#clientsTable tbody");
@@ -693,7 +831,7 @@ function renderClients(allClients) {
   resultCountEl.textContent = `${clients.length} / ${allClients.length} rows`;
 
   if (clients.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="11" class="empty-row">No clients match the current filters</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="26" class="empty-row">No clients match the current filters</td></tr>`;
     return;
   }
 
@@ -705,6 +843,8 @@ function renderClients(allClients) {
     const todo = c.todo_stage || todoForStage(stage) || "";
     const approved = c.approved === true;
     const owner = c.assigned_to || "—";
+    const hasEmail = Boolean((c.email || "").trim());
+    const hasPhone = Boolean((c.phone || c.other_contact || "").trim());
 
     tbody.insertAdjacentHTML("beforeend", `
       <tr class="${approved ? "approved-row" : ""}">
@@ -712,10 +852,25 @@ function renderClients(allClients) {
         <td>${escapeHtml(stage)}</td>
         <td>${escapeHtml(todo)}</td>
         <td class="${overdue ? "overdue" : ""}">${fmtDate(c.followup_date)}</td>
-        <td>${escapeHtml(c.company || "")}</td>
-        <td>${escapeHtml(c.contact || "")}</td>
+        <td title="${escapeHtml(c.company || "")}">${escapeHtml(c.company || "")}</td>
+        <td title="${escapeHtml(c.contact || "")}">${escapeHtml(c.contact || "")}</td>
         <td>${escapeHtml(c.phone || "")}</td>
-        <td>${escapeHtml(c.email || "")}</td>
+        <td title="${escapeHtml(c.email || "")}">${escapeHtml(c.email || "")}</td>
+        <td title="${escapeHtml(c.client_name || "")}">${escapeHtml(c.client_name || "")}</td>
+        <td title="${escapeHtml(c.client_location || "")}">${escapeHtml(c.client_location || "")}</td>
+        <td title="${escapeHtml(c.client_address || "")}">${escapeHtml(c.client_address || "")}</td>
+        <td>${escapeHtml(c.project_id || "")}</td>
+        <td title="${escapeHtml(c.project_name || "")}">${escapeHtml(c.project_name || "")}</td>
+        <td title="${escapeHtml(c.project_location || "")}">${escapeHtml(c.project_location || "")}</td>
+        <td title="${escapeHtml(c.project_address || "")}">${escapeHtml(c.project_address || "")}</td>
+        <td title="${escapeHtml(c.builder_name || "")}">${escapeHtml(c.builder_name || "")}</td>
+        <td title="${escapeHtml(c.architect || "")}">${escapeHtml(c.architect || "")}</td>
+        <td title="${escapeHtml(c.other_contact || "")}">${escapeHtml(c.other_contact || "")}</td>
+        <td style="text-align:center;">${escapeHtml(c.main_door_qty ?? 0)}</td>
+        <td style="text-align:center;">${escapeHtml(c.bedroom_door_qty ?? 0)}</td>
+        <td style="text-align:center;">${escapeHtml(c.toilet_door_qty ?? 0)}</td>
+        <td title="${escapeHtml(c.remark || "")}">${escapeHtml(c.remark || "")}</td>
+        <td class="remark-log-cell">${renderRemarkLogHtml(c)}</td>
         <td style="font-size:11.5px;color:#6b5d52">${escapeHtml(owner)}</td>
         <td>${approved ? `<span class="approved-label">✓ Approved</span>` : `<span style="color:#999;font-size:12px">Pending</span>`}</td>
         <td class="action-cell">
@@ -723,8 +878,8 @@ function renderClients(allClients) {
           ${admin ? `<button class="copy-btn" data-id="${c.id}">📋 Copy</button>` : ""}
           <button class="edit-btn" data-id="${c.id}">✏ Edit</button>
           ${admin ? `<button class="delete-btn" data-id="${c.id}">🗑 Delete</button>` : ""}
-          ${c.email ? `<button class="email-btn" data-id="${c.id}">✉ Email</button>` : ""}
-          ${c.phone ? `<button class="wa-btn" data-id="${c.id}">💬 WA</button>` : ""}
+          ${hasEmail ? `<button class="email-btn" data-id="${c.id}">✉ Email</button>` : ""}
+          ${hasPhone ? `<button class="wa-btn" data-id="${c.id}">💬 WA</button>` : ""}
         </td>
       </tr>
     `);
@@ -789,6 +944,21 @@ async function copyClientToUser(id) {
     contact: c.contact || "",
     phone: c.phone || "",
     email: c.email || "",
+    client_name: c.client_name || "",
+    client_location: c.client_location || "",
+    client_address: c.client_address || "",
+    project_id: c.project_id || "",
+    project_name: c.project_name || "",
+    project_location: c.project_location || "",
+    project_address: c.project_address || "",
+    builder_name: c.builder_name || "",
+    architect: c.architect || "",
+    other_contact: c.other_contact || "",
+    main_door_qty: Number(c.main_door_qty || 0),
+    bedroom_door_qty: Number(c.bedroom_door_qty || 0),
+    toilet_door_qty: Number(c.toilet_door_qty || 0),
+    remark: c.remark || "",
+    remark_log: parseRemarkLog(c.remark_log),
     todo_stage: c.todo_stage || "",
     done_stage: c.done_stage || "",
     followup_date: c.followup_date || null,
@@ -818,9 +988,24 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
     "To-Do": c.todo_stage || todoForStage(c.done_stage) || "",
     "Follow-up Date": fmtDate(c.followup_date),
     "Company/Project": c.company || "",
-    "Contact": c.contact || "",
+    "Contact Person": c.contact || "",
     "Phone": c.phone || "",
     "Email": c.email || "",
+    "Client Name": c.client_name || "",
+    "Client Location": c.client_location || "",
+    "Client Address": c.client_address || "",
+    "Project ID": c.project_id || "",
+    "Project Name": c.project_name || "",
+    "Project Location": c.project_location || "",
+    "Project Address": c.project_address || "",
+    "Builder Name": c.builder_name || "",
+    "Architect": c.architect || "",
+    "Other Contact": c.other_contact || "",
+    "Main Door Qty": c.main_door_qty ?? 0,
+    "Bedroom Door Qty": c.bedroom_door_qty ?? 0,
+    "Toilet Door Qty": c.toilet_door_qty ?? 0,
+    "Remark": c.remark || "",
+    "Remark Log": formatRemarkLogSummary(c),
     "Notes": c.notes || "",
     "Owner": c.assigned_to || "",
     "Approved": c.approved ? "Yes" : "No",
@@ -830,7 +1015,7 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
   const ws = XLSX.utils.json_to_sheet(rows);
   const headers = Object.keys(rows[0]);
   ws["!cols"] = headers.map(h => ({
-    wch: Math.max(h.length, ...rows.map(r => String(r[h] || "").length)) + 2
+    wch: Math.min(50, Math.max(h.length, ...rows.map(r => String(r[h] ?? "").length)) + 2)
   }));
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "SRM Clients");
@@ -839,45 +1024,122 @@ document.getElementById("exportExcelBtn").addEventListener("click", () => {
 });
 
 /* ============ EMAIL / WHATSAPP ============ */
+function buildCapturedContextLine(c) {
+  const clientName = c.client_name || c.company || "";
+  const siteName = c.project_name || c.company || "";
+  const contactPerson = c.contact || "";
+  const parts = [];
+  if (clientName) parts.push(`Client: ${clientName}`);
+  if (siteName) parts.push(`Site: ${siteName}`);
+  if (contactPerson) parts.push(`Contact Person: ${contactPerson}`);
+  return parts.join(" | ");
+}
+
 function openEmail(id) {
   const c = currentClients.find(x => x.id === id);
   if (!c || !c.email) return;
   const stage = c.done_stage || "";
   const tpl = emailForStage(stage);
-  const subject = encodeURIComponent(`SRM Doors — ${stage || "Update"} — ${c.company || ""}`);
-  const body = encodeURIComponent(fillTemplate(tpl, c));
-  window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(c.email)}&su=${subject}&body=${body}`, "_blank");
+  const contextLine = buildCapturedContextLine(c);
+  const subject = encodeURIComponent(
+    `SRM Doors — ${stage || "Update"}${contextLine ? ` — ${contextLine}` : ""}`
+  );
+  const filledBody = fillTemplate(tpl, c);
+  const bodyWithHeader = contextLine
+    ? `${filledBody}\n\n---\nCaptured Details: ${contextLine}`
+    : filledBody;
+  window.open(
+    `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(c.email)}&su=${subject}&body=${encodeURIComponent(bodyWithHeader)}`,
+    "_blank"
+  );
 }
+
 function openWhatsApp(id) {
   const c = currentClients.find(x => x.id === id);
   if (!c) return;
+  const rawPhone = c.phone || c.other_contact || "";
+  if (!rawPhone) return;
   const stage = c.done_stage || "";
   const tpl = waForStage(stage);
-  let phone = String(c.phone || "").replace(/\D/g, "");
-  if (!phone.startsWith("91")) phone = "91" + phone;
-  const text = encodeURIComponent(fillTemplate(tpl, c));
-  window.open(`https://web.whatsapp.com/send?phone=${phone}&text=${text}`, "_blank");
+  let phone = String(rawPhone).replace(/\D/g, "");
+  if (phone.length === 10) phone = "91" + phone;
+  const filledText = fillTemplate(tpl, c);
+  const contextLine = buildCapturedContextLine(c);
+  const finalText = contextLine
+    ? `${filledText}\n\n_${contextLine}_`
+    : filledText;
+  window.open(`https://web.whatsapp.com/send?phone=${phone}&text=${encodeURIComponent(finalText)}`, "_blank");
 }
 
 /* ============ CLIENT FORM ============ */
+function renderFormRemarkLog(logs) {
+  const wrap = document.getElementById("remarkLogWrap");
+  const box = document.getElementById("remarkLogHistory");
+  if (!logs || logs.length === 0) {
+    wrap.style.display = "none";
+    box.innerHTML = "";
+    return;
+  }
+  wrap.style.display = "block";
+  box.innerHTML = logs
+    .slice()
+    .reverse()
+    .map(item => `
+      <div class="remark-history-item">
+        <div class="remark-history-meta">${escapeHtml(fmtDateTime(item.at))} • ${escapeHtml(item.by || "")}</div>
+        <div>${escapeHtml(item.text || "")}</div>
+      </div>
+    `).join("");
+}
+
 clientForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   const msg = document.getElementById("formMsg");
   msg.textContent = "";
   const stage = stageSelect.value;
   const todo = todoSelect.value || todoForStage(stage);
+  const id = document.getElementById("clientId").value;
+  const existing = id ? currentClients.find(x => x.id === id) : null;
+
+  const newRemark = document.getElementById("remarkInput").value.trim();
+  const prevLog = existing ? parseRemarkLog(existing.remark_log) : [];
+  const nextLog = prevLog.slice();
+
+  if (newRemark && (!existing || newRemark !== (existing.remark || "").trim())) {
+    nextLog.push({
+      text: newRemark,
+      by: currentUser?.email || "user",
+      at: new Date().toISOString()
+    });
+  }
+
   const payload = {
     company: document.getElementById("companyName").value.trim(),
     contact: document.getElementById("contactPerson").value.trim(),
     phone: document.getElementById("phone").value.trim(),
     email: document.getElementById("email").value.trim(),
+    other_contact: document.getElementById("otherContact").value.trim(),
+    client_name: document.getElementById("clientName").value.trim(),
+    client_location: document.getElementById("clientLocation").value.trim(),
+    client_address: document.getElementById("clientAddress").value.trim(),
+    project_id: document.getElementById("projectId").value.trim(),
+    project_name: document.getElementById("projectName").value.trim(),
+    project_location: document.getElementById("projectLocation").value.trim(),
+    project_address: document.getElementById("projectAddress").value.trim(),
+    builder_name: document.getElementById("builderName").value.trim(),
+    architect: document.getElementById("architect").value.trim(),
+    main_door_qty: Math.max(0, parseInt(document.getElementById("mainDoorQty").value, 10) || 0),
+    bedroom_door_qty: Math.max(0, parseInt(document.getElementById("bedroomDoorQty").value, 10) || 0),
+    toilet_door_qty: Math.max(0, parseInt(document.getElementById("toiletDoorQty").value, 10) || 0),
+    remark: newRemark,
+    remark_log: nextLog,
     todo_stage: todo,
     done_stage: stage,
     followup_date: document.getElementById("followupDate").value || null,
     notes: document.getElementById("notes").value.trim(),
     updated_at: new Date().toISOString()
   };
-  const id = document.getElementById("clientId").value;
+
   let error;
   if (id) {
     ({ error } = await supabaseClient.from("clients").update(payload).eq("id", id));
@@ -904,16 +1166,30 @@ function loadForEdit(id) {
   document.getElementById("contactPerson").value = c.contact || "";
   document.getElementById("phone").value = c.phone || "";
   document.getElementById("email").value = c.email || "";
+  document.getElementById("otherContact").value = c.other_contact || "";
+  document.getElementById("clientName").value = c.client_name || "";
+  document.getElementById("clientLocation").value = c.client_location || "";
+  document.getElementById("clientAddress").value = c.client_address || "";
+  document.getElementById("projectId").value = c.project_id || "";
+  document.getElementById("projectName").value = c.project_name || "";
+  document.getElementById("projectLocation").value = c.project_location || "";
+  document.getElementById("projectAddress").value = c.project_address || "";
+  document.getElementById("builderName").value = c.builder_name || "";
+  document.getElementById("architect").value = c.architect || "";
+  document.getElementById("mainDoorQty").value = c.main_door_qty ?? 0;
+  document.getElementById("bedroomDoorQty").value = c.bedroom_door_qty ?? 0;
+  document.getElementById("toiletDoorQty").value = c.toilet_door_qty ?? 0;
   document.getElementById("doneStage").value = c.done_stage || "";
   document.getElementById("followupDate").value = c.followup_date || "";
+  document.getElementById("remarkInput").value = c.remark || "";
   document.getElementById("notes").value = c.notes || "";
   todoSelect.value = c.todo_stage || todoForStage(c.done_stage) || "";
+  renderFormRemarkLog(parseRemarkLog(c.remark_log));
   document.getElementById("formTitle").textContent = "✏️ Edit Client / Project";
   document.querySelector('[data-tab="addClient"]').click();
 }
 
 async function deleteClient(id) {
-  // ── ADMIN ONLY — Delete ──
   if (!isAdminUser()) {
     toast("Only " + ADMIN_EMAIL + " can delete clients", "error");
     return;
@@ -928,9 +1204,13 @@ async function deleteClient(id) {
 function resetForm() {
   clientForm.reset();
   document.getElementById("clientId").value = "";
+  document.getElementById("mainDoorQty").value = "0";
+  document.getElementById("bedroomDoorQty").value = "0";
+  document.getElementById("toiletDoorQty").value = "0";
   document.getElementById("formMsg").textContent = "";
   document.getElementById("formTitle").textContent = "➕ Add New Client / Project";
   todoSelect.innerHTML = `<option value="">— none —</option>`;
+  renderFormRemarkLog([]);
 }
 
 /* ============ MANAGE STAGES ============ */
