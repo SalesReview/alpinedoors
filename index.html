@@ -6,9 +6,6 @@
 <title>SRM Doors — Sales CRM</title>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <style>
-/* ============================================================
-   RESET & BASE
-   ============================================================ */
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
   font-family: 'Segoe UI', Roboto, Arial, sans-serif;
@@ -16,13 +13,10 @@ body {
   color: #2b2320;
   min-height: 100vh;
 }
-
 .screen { display: none; }
 .screen.active { display: block; }
 
-/* ============================================================
-   LOGIN SCREEN
-   ============================================================ */
+/* LOGIN */
 #loginScreen {
   display: none;
   min-height: 100vh;
@@ -31,7 +25,6 @@ body {
   background: linear-gradient(135deg, #6b4226, #a67c52);
 }
 #loginScreen.active { display: flex; }
-
 .login-box {
   background: #fff;
   padding: 44px 38px;
@@ -41,229 +34,123 @@ body {
   border-top: 5px solid #6b4226;
 }
 .login-box .brand {
-  text-align: center;
-  margin-bottom: 6px;
-  font-size: 28px;
-  font-weight: 800;
-  letter-spacing: 1px;
-  color: #6b4226;
+  text-align: center; margin-bottom: 6px;
+  font-size: 28px; font-weight: 800;
+  letter-spacing: 1px; color: #6b4226;
 }
 .login-box .brand span { color: #a67c52; }
 .login-box .subtitle {
-  text-align: center;
-  color: #777;
-  margin-bottom: 28px;
-  font-size: 13px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+  text-align: center; color: #777; margin-bottom: 28px;
+  font-size: 13px; text-transform: uppercase; letter-spacing: 2px;
 }
 .login-box input {
-  width: 100%;
-  padding: 13px 14px;
-  margin-bottom: 14px;
-  border: 1px solid #d0c8c0;
-  border-radius: 8px;
-  font-size: 15px;
+  width: 100%; padding: 13px 14px; margin-bottom: 14px;
+  border: 1px solid #d0c8c0; border-radius: 8px; font-size: 15px;
   transition: border-color .2s;
 }
 .login-box input:focus {
-  outline: none;
-  border-color: #6b4226;
+  outline: none; border-color: #6b4226;
   box-shadow: 0 0 0 3px rgba(107,66,38,.12);
 }
 .login-box button {
-  width: 100%;
-  padding: 13px;
-  border: none;
-  border-radius: 8px;
-  background: #6b4226;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background .2s;
-  letter-spacing: .5px;
+  width: 100%; padding: 13px; border: none; border-radius: 8px;
+  background: #6b4226; color: #fff; font-size: 16px; font-weight: 600;
+  cursor: pointer; transition: background .2s; letter-spacing: .5px;
 }
 .login-box button:hover { background: #52321c; }
 .login-box button:disabled { background: #b8a898; cursor: not-allowed; }
 .error {
-  color: #c62828;
-  font-size: 13px;
-  margin-top: 8px;
-  min-height: 16px;
-  text-align: center;
+  color: #c62828; font-size: 13px; margin-top: 8px;
+  min-height: 16px; text-align: center;
 }
 
-/* ============================================================
-   APP HEADER
-   ============================================================ */
+/* HEADER */
 .app-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #6b4226;
-  color: #fff;
-  padding: 14px 24px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: #6b4226; color: #fff; padding: 14px 24px;
   box-shadow: 0 2px 10px rgba(0,0,0,.18);
-  position: sticky;
-  top: 0;
-  z-index: 50;
+  position: sticky; top: 0; z-index: 50;
 }
 .app-header h1 { font-size: 19px; font-weight: 700; letter-spacing: .5px; }
 .app-header h1 span { color: #e8d5b7; font-weight: 400; }
 .user-info { display: flex; align-items: center; gap: 10px; font-size: 14px; }
 .badge {
-  background: rgba(255,255,255,.18);
-  padding: 4px 11px;
-  border-radius: 20px;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: .8px;
-  font-weight: 600;
+  background: rgba(255,255,255,.18); padding: 4px 11px; border-radius: 20px;
+  font-size: 11px; text-transform: uppercase; letter-spacing: .8px; font-weight: 600;
 }
 .logout-btn {
-  background: #e8d5b7;
-  color: #6b4226;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 13px;
-  transition: background .2s;
+  background: #e8d5b7; color: #6b4226; border: none;
+  padding: 8px 16px; border-radius: 6px; cursor: pointer;
+  font-weight: 700; font-size: 13px; transition: background .2s;
 }
 .logout-btn:hover { background: #fff; }
 
-/* ============================================================
-   TABS
-   ============================================================ */
+/* TABS */
 .tabs {
-  display: flex;
-  gap: 2px;
-  background: #fff;
-  padding: 0 24px;
+  display: flex; gap: 2px; background: #fff; padding: 0 24px;
   border-bottom: 1px solid #e5ddd5;
-  position: sticky;
-  top: 63px;
-  z-index: 40;
+  position: sticky; top: 63px; z-index: 40;
 }
 .tab-btn {
-  background: none;
-  border: none;
-  padding: 15px 22px;
-  cursor: pointer;
-  font-size: 14px;
-  color: #6b5d52;
-  border-bottom: 3px solid transparent;
-  font-weight: 500;
-  transition: color .15s;
+  background: none; border: none; padding: 15px 22px; cursor: pointer;
+  font-size: 14px; color: #6b5d52; border-bottom: 3px solid transparent;
+  font-weight: 500; transition: color .15s;
 }
 .tab-btn:hover { color: #6b4226; }
-.tab-btn.active {
-  color: #6b4226;
-  border-bottom-color: #6b4226;
-  font-weight: 700;
-}
-
+.tab-btn.active { color: #6b4226; border-bottom-color: #6b4226; font-weight: 700; }
 .tab-panel { display: none; padding: 24px; max-width: 1400px; margin: 0 auto; }
 .tab-panel.active { display: block; }
-.tab-panel h2 {
-  font-size: 20px;
-  margin-bottom: 18px;
-  color: #3a2a1e;
-}
+.tab-panel h2 { font-size: 20px; margin-bottom: 18px; color: #3a2a1e; }
 
-/* ============================================================
-   DASHBOARD
-   ============================================================ */
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
+/* DASHBOARD */
+.dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
 .dash-card {
-  background: #fff;
-  border-radius: 12px;
-  padding: 22px;
+  background: #fff; border-radius: 12px; padding: 22px;
   box-shadow: 0 2px 14px rgba(107,66,38,.08);
   border-top: 3px solid #a67c52;
 }
 .dash-card.full-width { grid-column: 1 / -1; }
-.dash-card h3 {
-  margin-bottom: 14px;
-  color: #6b4226;
-  font-size: 16px;
-  font-weight: 700;
-}
+.dash-card h3 { margin-bottom: 14px; color: #6b4226; font-size: 16px; font-weight: 700; }
 .dash-card table { width: 100%; border-collapse: collapse; font-size: 14px; }
 .dash-card th, .dash-card td {
-  padding: 9px 12px;
-  border: 1px solid #ede4da;
-  text-align: left;
+  padding: 9px 12px; border: 1px solid #ede4da; text-align: left;
 }
 .dash-card th { background: #f3ece4; font-weight: 700; color: #52321c; }
 .dash-card td:last-child {
-  text-align: center;
-  font-weight: 700;
-  background: #faf6f1;
-  width: 80px;
-  color: #6b4226;
+  text-align: center; font-weight: 700;
+  background: #faf6f1; width: 80px; color: #6b4226;
 }
 #summaryStats { line-height: 2.2; font-size: 15px; }
 #summaryStats .stat {
-  display: flex;
-  justify-content: space-between;
-  padding: 6px 0;
+  display: flex; justify-content: space-between; padding: 6px 0;
   border-bottom: 1px dashed #ede4da;
 }
 #summaryStats .stat:last-child { border-bottom: none; }
 #summaryStats .stat b { color: #6b4226; font-size: 16px; }
 #summaryStats .dead b { color: #c62828; }
 
-/* ============================================================
-   CLIENTS TABLE
-   ============================================================ */
+/* CLIENTS TABLE */
 .table-wrap {
-  overflow-x: auto;
-  background: #fff;
-  border-radius: 12px;
-  padding: 6px;
+  overflow-x: auto; background: #fff; border-radius: 12px; padding: 6px;
   box-shadow: 0 2px 14px rgba(107,66,38,.08);
 }
 #clientsTable {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 13.5px;
-  min-width: 1050px;
+  width: 100%; border-collapse: collapse; font-size: 13.5px; min-width: 1200px;
 }
 #clientsTable th, #clientsTable td {
-  padding: 11px 10px;
-  border-bottom: 1px solid #ede4da;
-  text-align: left;
-  white-space: nowrap;
+  padding: 11px 10px; border-bottom: 1px solid #ede4da;
+  text-align: left; white-space: nowrap;
 }
 #clientsTable th {
-  background: #f3ece4;
-  font-weight: 700;
-  color: #52321c;
-  position: sticky;
-  top: 0;
+  background: #f3ece4; font-weight: 700; color: #52321c;
+  position: sticky; top: 0;
 }
 #clientsTable tbody tr:hover { background: #faf6f1; }
-#clientsTable td.overdue {
-  background: #fdecea;
-  color: #b71c1c;
-  font-weight: 700;
-}
+#clientsTable td.overdue { background: #fdecea; color: #b71c1c; font-weight: 700; }
 #clientsTable .action-cell { white-space: nowrap; }
 #clientsTable button {
-  padding: 5px 11px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 12px;
-  margin-right: 3px;
-  font-weight: 600;
+  padding: 5px 11px; border: none; border-radius: 5px;
+  cursor: pointer; font-size: 12px; margin-right: 3px; font-weight: 600;
 }
 .edit-btn { background: #d4a548; color: #fff; }
 .edit-btn:hover { background: #b88a2e; }
@@ -271,96 +158,56 @@ body {
 .delete-btn:hover { background: #9c1f1f; }
 .wa-btn { background: #25d366; color: #fff; }
 .wa-btn:hover { background: #1da851; }
+.email-btn { background: #1a73e8; color: #fff; }
+.email-btn:hover { background: #1558b0; }
 .empty-row {
-  text-align: center;
-  color: #999;
-  padding: 30px !important;
-  font-style: italic;
+  text-align: center; color: #999; padding: 30px !important; font-style: italic;
 }
 
-/* ============================================================
-   FORM
-   ============================================================ */
+/* FORM */
 .client-form {
-  max-width: 660px;
-  background: #fff;
-  padding: 28px;
-  border-radius: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+  max-width: 660px; background: #fff; padding: 28px; border-radius: 12px;
+  display: flex; flex-direction: column; gap: 16px;
   box-shadow: 0 2px 14px rgba(107,66,38,.08);
   border-top: 3px solid #a67c52;
 }
 .client-form label {
-  display: flex;
-  flex-direction: column;
-  font-size: 14px;
-  gap: 6px;
-  color: #52321c;
-  font-weight: 600;
+  display: flex; flex-direction: column; font-size: 14px;
+  gap: 6px; color: #52321c; font-weight: 600;
 }
 .client-form input, .client-form select, .client-form textarea {
-  padding: 11px 12px;
-  border: 1px solid #d0c8c0;
-  border-radius: 7px;
-  font-size: 14px;
-  font-family: inherit;
-  transition: border-color .2s;
+  padding: 11px 12px; border: 1px solid #d0c8c0; border-radius: 7px;
+  font-size: 14px; font-family: inherit; transition: border-color .2s;
   background: #fdfbf9;
 }
 .client-form input:focus, .client-form select:focus, .client-form textarea:focus {
-  outline: none;
-  border-color: #6b4226;
-  box-shadow: 0 0 0 3px rgba(107,66,38,.1);
-  background: #fff;
+  outline: none; border-color: #6b4226;
+  box-shadow: 0 0 0 3px rgba(107,66,38,.1); background: #fff;
 }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .form-actions { display: flex; gap: 10px; margin-top: 4px; }
 .client-form button[type=submit] {
-  background: #6b4226;
-  color: #fff;
-  border: none;
-  padding: 12px 26px;
-  border-radius: 7px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 14px;
+  background: #6b4226; color: #fff; border: none;
+  padding: 12px 26px; border-radius: 7px; cursor: pointer;
+  font-weight: 700; font-size: 14px;
 }
 .client-form button[type=submit]:hover { background: #52321c; }
 .client-form button.secondary {
-  background: #ede4da;
-  color: #52321c;
-  border: none;
-  padding: 12px 26px;
-  border-radius: 7px;
-  cursor: pointer;
-  font-weight: 700;
-  font-size: 14px;
+  background: #ede4da; color: #52321c; border: none;
+  padding: 12px 26px; border-radius: 7px; cursor: pointer;
+  font-weight: 700; font-size: 14px;
 }
 .client-form button.secondary:hover { background: #dfd1c2; }
 
-/* ============================================================
-   TOAST NOTIFICATIONS
-   ============================================================ */
+/* TOAST */
 #toastContainer {
-  position: fixed;
-  top: 80px;
-  right: 24px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  position: fixed; top: 80px; right: 24px; z-index: 9999;
+  display: flex; flex-direction: column; gap: 10px;
 }
 .toast {
-  background: #3a2a1e;
-  color: #fff;
-  padding: 13px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  box-shadow: 0 4px 16px rgba(0,0,0,.28);
-  animation: slideIn .3s ease;
-  max-width: 340px;
+  background: #3a2a1e; color: #fff; padding: 13px 20px; border-radius: 8px;
+  font-size: 14px; box-shadow: 0 4px 16px rgba(0,0,0,.28);
+  animation: slideIn .3s ease; max-width: 340px;
 }
 .toast.success { background: #2d8e47; }
 .toast.error { background: #c62828; }
@@ -370,9 +217,6 @@ body {
   to { transform: translateX(0); opacity: 1; }
 }
 
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
 @media (max-width: 800px) {
   .dashboard-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
@@ -385,7 +229,6 @@ body {
 </head>
 <body>
 
-<!-- ============ LOGIN SCREEN ============ -->
 <div id="loginScreen" class="screen active">
   <div class="login-box">
     <div class="brand">SRM <span>Doors</span></div>
@@ -399,9 +242,7 @@ body {
   </div>
 </div>
 
-<!-- ============ MAIN APP ============ -->
 <div id="appScreen" class="screen">
-
   <header class="app-header">
     <h1>🚪 SRM <span>Doors</span> — Sales CRM</h1>
     <div class="user-info">
@@ -417,7 +258,6 @@ body {
     <button class="tab-btn" data-tab="addClient">➕ Add / Edit Client</button>
   </nav>
 
-  <!-- DASHBOARD TAB -->
   <section id="tab-dashboard" class="tab-panel active">
     <h2>📈 SRM Doors — Sales Dashboard</h2>
     <div class="dashboard-grid">
@@ -442,7 +282,6 @@ body {
     </div>
   </section>
 
-  <!-- CLIENTS TAB -->
   <section id="tab-clients" class="tab-panel">
     <h2>👥 SRM Doors — Clients</h2>
     <div class="table-wrap">
@@ -465,12 +304,10 @@ body {
     </div>
   </section>
 
-  <!-- ADD CLIENT TAB -->
   <section id="tab-addClient" class="tab-panel">
     <h2 id="formTitle">➕ Add New Client / Project</h2>
     <form id="clientForm" class="client-form">
       <input type="hidden" id="clientId" />
-
       <div class="form-row">
         <label>Company / Project Name *
           <input type="text" id="companyName" required placeholder="e.g. Skyline Apartments" />
@@ -479,7 +316,6 @@ body {
           <input type="text" id="contactPerson" required placeholder="e.g. Mr. Sharma" />
         </label>
       </div>
-
       <div class="form-row">
         <label>Phone
           <input type="tel" id="phone" placeholder="e.g. 9876543210" />
@@ -488,7 +324,6 @@ body {
           <input type="email" id="email" placeholder="name@company.com" />
         </label>
       </div>
-
       <div class="form-row">
         <label>To-Do Stage (Column B)
           <select id="todoStage"></select>
@@ -497,15 +332,12 @@ body {
           <select id="doneStage"></select>
         </label>
       </div>
-
       <label>Follow-up Date
         <input type="date" id="followupDate" />
       </label>
-
       <label>Project Notes (door type, quantity, site details…)
         <textarea id="notes" rows="3" placeholder="e.g. 12 teak veneer doors, site visit done…"></textarea>
       </label>
-
       <div class="form-actions">
         <button type="submit">💾 Save Client</button>
         <button type="button" id="cancelEdit" class="secondary">Cancel</button>
@@ -513,14 +345,13 @@ body {
       <p id="formMsg" class="error"></p>
     </form>
   </section>
-
 </div>
 
 <div id="toastContainer"></div>
 
 <script>
 /* ============================================================
-   CONFIGURATION — REPLACE WITH YOUR SUPABASE VALUES
+   CONFIGURATION — YOUR SUPABASE VALUES
    ============================================================ */
 const SUPABASE_URL = "https://wahxxiwtutjwxtedcedb.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable__S08Yx-z66ewIrpwSx7w5Q_9kk94BFK";
@@ -550,11 +381,10 @@ const DONE_STAGES = [
   "14. Payment Done"
 ];
 const COMPLETED_STAGES_SET = new Set(DONE_STAGES);
-const WA_KEYWORDS = /7\. Sample Shown|8\. Design Approved|9\. Order Confirmed|10\. Advance Received|11\. Manufacturing Started|12\. Ready for Delivery|13\. Installation Done|14\. Payment Done/;
 const BRAND_FOOTER = "SRM Doors — Quality You Can Trust";
 
 /* ============================================================
-   DOM REFERENCES
+   DOM
    ============================================================ */
 const loginScreen = document.getElementById("loginScreen");
 const appScreen   = document.getElementById("appScreen");
@@ -617,10 +447,7 @@ loginForm.addEventListener("submit", async (e) => {
   loginBtn.disabled = false;
   loginBtn.textContent = "Login";
 
-  if (error) {
-    errEl.textContent = error.message;
-    return;
-  }
+  if (error) { errEl.textContent = error.message; return; }
   await showApp(data.user);
 });
 
@@ -643,11 +470,9 @@ async function showApp(user) {
 
   loginScreen.classList.remove("active");
   appScreen.classList.add("active");
-
   await refreshAll();
 }
 
-// Restore session on load
 (async () => {
   const { data: { session } } = await supabaseClient.auth.getSession();
   if (session?.user) await showApp(session.user);
@@ -688,7 +513,7 @@ async function refreshAll() {
 }
 
 /* ============================================================
-   DASHBOARD RENDER
+   DASHBOARD
    ============================================================ */
 function renderDashboard(clients) {
   const todoSummary = {};
@@ -757,7 +582,7 @@ function renderDashboard(clients) {
 }
 
 /* ============================================================
-   CLIENTS TABLE RENDER
+   CLIENTS TABLE
    ============================================================ */
 function renderClients(clients) {
   const tbody = document.querySelector("#clientsTable tbody");
@@ -785,7 +610,8 @@ function renderClients(clients) {
         <td class="action-cell">
           <button class="edit-btn" data-id="${c.id}">Edit</button>
           ${isAdmin ? `<button class="delete-btn" data-id="${c.id}">Delete</button>` : ""}
-          ${c.phone ? `<button class="wa-btn" data-id="${c.id}">WA</button>` : ""}
+          ${c.email ? `<button class="email-btn" data-id="${c.id}">✉ Email</button>` : ""}
+          ${c.phone ? `<button class="wa-btn" data-id="${c.id}">💬 WA</button>` : ""}
         </td>
       </tr>
     `);
@@ -795,10 +621,47 @@ function renderClients(clients) {
     b.addEventListener("click", () => loadForEdit(b.dataset.id)));
   tbody.querySelectorAll(".delete-btn").forEach(b =>
     b.addEventListener("click", () => deleteClient(b.dataset.id)));
+  tbody.querySelectorAll(".email-btn").forEach(b =>
+    b.addEventListener("click", () => openEmail(b.dataset.id)));
   tbody.querySelectorAll(".wa-btn").forEach(b =>
     b.addEventListener("click", () => openWhatsApp(b.dataset.id)));
 }
 
+/* ============================================================
+   EMAIL
+   ============================================================ */
+function openEmail(id) {
+  const c = currentClients.find(x => x.id === id);
+  if (!c || !c.email) return;
+
+  const subject = encodeURIComponent(
+    `SRM Doors — ${c.done_stage || c.todo_stage || "Update"} — ${c.company || ""}`
+  );
+  const body = encodeURIComponent(buildEmailBody(c));
+  const cc = "kulin@grouparyan.com,aryan@grouparyan.com";
+
+  const url = `https://mail.google.com/mail/?view=cm&fs=1` +
+              `&to=${encodeURIComponent(c.email)}` +
+              `&cc=${cc}` +
+              `&su=${subject}` +
+              `&body=${body}`;
+  window.open(url, "_blank");
+}
+
+function buildEmailBody(c) {
+  return `Greetings from SRM Doors!\n\n` +
+         `Kind Attention: ${c.contact || ""}\n\n` +
+         `Project: ${c.company || ""}\n\n` +
+         `Current Status: ${c.todo_stage || "—"}${c.done_stage ? " → " + c.done_stage : ""}\n\n` +
+         `We look forward for our next discussion on or before: ${fmtDate(c.followup_date)}\n\n` +
+         (c.notes ? `Notes: ${c.notes}\n\n` : "") +
+         `${BRAND_FOOTER}\n` +
+         `Contact: +91-XXXXXXXXXX | srmdoors.com`;
+}
+
+/* ============================================================
+   WHATSAPP
+   ============================================================ */
 function openWhatsApp(id) {
   const c = currentClients.find(x => x.id === id);
   if (!c) return;
@@ -812,12 +675,13 @@ function buildWhatsAppMessage(c) {
   return `*SRM Doors*\n\n` +
          `*Kind Attention:* *${c.contact || ""}*\n\n` +
          `*Project:* ${c.company || ""}\n\n` +
+         `*Status:* ${c.todo_stage || "—"}${c.done_stage ? " → " + c.done_stage : ""}\n\n` +
          `🕒 *Next discussion on or before:* ${fmtDate(c.followup_date)}\n\n` +
          `${BRAND_FOOTER}`;
 }
 
 /* ============================================================
-   ADD / EDIT FORM
+   FORM
    ============================================================ */
 populateStageDropdowns();
 
@@ -849,7 +713,6 @@ clientForm.addEventListener("submit", async (e) => {
 
   const id = document.getElementById("clientId").value;
 
-  // "Delete Client" → archive and delete
   if (payload.todo_stage === "Delete Client") {
     if (id) {
       const { data: existing } = await supabaseClient
@@ -882,7 +745,7 @@ clientForm.addEventListener("submit", async (e) => {
     return;
   }
 
-  toast(id ? "Project updated" : "Project added", "success");
+  toast(id ? "Project updated" : "Project added — saved to Supabase", "success");
   resetForm();
   await refreshAll();
   document.querySelector('[data-tab="clients"]').click();
@@ -909,10 +772,7 @@ function loadForEdit(id) {
 async function deleteClient(id) {
   if (!confirm("Delete this project permanently?")) return;
   const { error } = await supabaseClient.from("clients").delete().eq("id", id);
-  if (error) {
-    toast("Delete failed: " + error.message, "error");
-    return;
-  }
+  if (error) { toast("Delete failed: " + error.message, "error"); return; }
   toast("Project deleted", "success");
   await refreshAll();
 }
