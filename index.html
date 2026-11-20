@@ -82,10 +82,10 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
 .clear-filters-btn:hover { background: #dfd1c2; }
 .result-count { font-size: 13px; color: #6b5d52; font-weight: 600; }
 
-.table-wrap { overflow-x: auto; background: #fff; border-radius: 12px; padding: 6px; box-shadow: 0 2px 14px rgba(107,66,38,.08); }
+.table-wrap { overflow-x: auto; overflow-y: visible; background: #fff; border-radius: 12px; padding: 6px; box-shadow: 0 2px 14px rgba(107,66,38,.08); }
 #clientsTable { width: 100%; border-collapse: collapse; font-size: 13px; min-width: 2750px; }
-#clientsTable th, #clientsTable td { padding: 10px 9px; border-bottom: 1px solid #ede4da; text-align: left; white-space: nowrap; max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
-#clientsTable th { background: #f3ece4; font-weight: 700; color: #52321c; position: sticky; top: 0; user-select: none; }
+#clientsTable td { padding: 10px 9px; border-bottom: 1px solid #ede4da; text-align: left; white-space: nowrap; max-width: 260px; overflow: hidden; text-overflow: ellipsis; }
+#clientsTable th { padding: 10px 9px; border-bottom: 1px solid #ede4da; text-align: left; white-space: nowrap; background: #f3ece4; font-weight: 700; color: #52321c; position: sticky; top: 0; user-select: none; overflow: visible; z-index: 20; }
 #clientsTable tbody tr:hover { background: #faf6f1; }
 #clientsTable td.overdue { background: #fdecea; color: #b71c1c; font-weight: 700; }
 #clientsTable tr.approved-row { background: #e8f5e9; }
@@ -105,12 +105,12 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
   color: #1254ab;
 }
 
-.th-inner { display: flex; align-items: center; gap: 6px; position: relative; }
+.th-inner { display: inline-flex; align-items: center; gap: 6px; position: relative; }
 .filter-btn { background: none; border: 1px solid #c8bfb5; color: #6b4226; padding: 2px 7px; border-radius: 4px; cursor: pointer; font-size: 11px; font-weight: 700; line-height: 1; }
 .filter-btn:hover { background: #ede4da; }
 .filter-btn.active { background: #6b4226; color: #fff; border-color: #6b4226; }
 
-.filter-popup { position: absolute; top: 100%; left: 0; z-index: 200; background: #fff; border: 1px solid #d0c8c0; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.15); min-width: 240px; max-height: 320px; overflow: auto; padding: 8px 0; display: none; }
+.filter-popup { position: fixed; z-index: 3000; background: #fff; border: 1px solid #d0c8c0; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,.18); min-width: 240px; max-height: 320px; overflow: auto; padding: 8px 0; display: none; }
 .filter-popup.open { display: block; }
 .filter-popup .fp-search { width: calc(100% - 16px); margin: 0 8px 8px; padding: 6px 10px; border: 1px solid #d0c8c0; border-radius: 6px; font-size: 12px; }
 .filter-popup .fp-search:focus { outline: none; border-color: #6b4226; }
@@ -248,31 +248,31 @@ body { font-family: 'Segoe UI', Roboto, Arial, sans-serif; background: #f5f3f0; 
       <table id="clientsTable">
         <thead>
           <tr id="clientsTheadRow">
-            <th data-col="created_at">Date Added <button class="filter-btn" data-col="created_at">▾</button></th>
-            <th data-col="done_stage">Stage <button class="filter-btn" data-col="done_stage">▾</button></th>
-            <th data-col="todo_stage">To-Do <button class="filter-btn" data-col="todo_stage">▾</button></th>
-            <th data-col="followup_date">Follow-up Date <button class="filter-btn" data-col="followup_date">▾</button></th>
-            <th data-col="company">Company / Project <button class="filter-btn" data-col="company">▾</button></th>
-            <th data-col="contact">Contact Person <button class="filter-btn" data-col="contact">▾</button></th>
-            <th data-col="phone">Phone <button class="filter-btn" data-col="phone">▾</button></th>
-            <th data-col="email">Email <button class="filter-btn" data-col="email">▾</button></th>
-            <th data-col="client_name">Client Name <button class="filter-btn" data-col="client_name">▾</button></th>
-            <th data-col="client_location">Client Location <button class="filter-btn" data-col="client_location">▾</button></th>
-            <th data-col="client_address">Client Address <button class="filter-btn" data-col="client_address">▾</button></th>
-            <th data-col="project_id">Project ID <button class="filter-btn" data-col="project_id">▾</button></th>
-            <th data-col="project_name">Project Name <button class="filter-btn" data-col="project_name">▾</button></th>
-            <th data-col="project_location">Project Location <button class="filter-btn" data-col="project_location">▾</button></th>
-            <th data-col="project_address">Project Address <button class="filter-btn" data-col="project_address">▾</button></th>
-            <th data-col="builder_name">Builder Name <button class="filter-btn" data-col="builder_name">▾</button></th>
-            <th data-col="architect">Architect <button class="filter-btn" data-col="architect">▾</button></th>
-            <th data-col="other_contact">Other Contact <button class="filter-btn" data-col="other_contact">▾</button></th>
-            <th data-col="main_door_qty">Main Door Qty <button class="filter-btn" data-col="main_door_qty">▾</button></th>
-            <th data-col="bedroom_door_qty">Bedroom Door Qty <button class="filter-btn" data-col="bedroom_door_qty">▾</button></th>
-            <th data-col="toilet_door_qty">Toilet Door Qty <button class="filter-btn" data-col="toilet_door_qty">▾</button></th>
-            <th data-col="remark">Remark <button class="filter-btn" data-col="remark">▾</button></th>
-            <th data-col="remark_log">Remark Log <button class="filter-btn" data-col="remark_log">▾</button></th>
-            <th data-col="assigned_to">Owner <button class="filter-btn" data-col="assigned_to">▾</button></th>
-            <th data-col="approved">Status <button class="filter-btn" data-col="approved">▾</button></th>
+            <th data-col="created_at"><div class="th-inner">Date Added <button type="button" class="filter-btn" data-col="created_at">▾</button></div></th>
+            <th data-col="done_stage"><div class="th-inner">Stage <button type="button" class="filter-btn" data-col="done_stage">▾</button></div></th>
+            <th data-col="todo_stage"><div class="th-inner">To-Do <button type="button" class="filter-btn" data-col="todo_stage">▾</button></div></th>
+            <th data-col="followup_date"><div class="th-inner">Follow-up Date <button type="button" class="filter-btn" data-col="followup_date">▾</button></div></th>
+            <th data-col="company"><div class="th-inner">Company / Project <button type="button" class="filter-btn" data-col="company">▾</button></div></th>
+            <th data-col="contact"><div class="th-inner">Contact Person <button type="button" class="filter-btn" data-col="contact">▾</button></div></th>
+            <th data-col="phone"><div class="th-inner">Phone <button type="button" class="filter-btn" data-col="phone">▾</button></div></th>
+            <th data-col="email"><div class="th-inner">Email <button type="button" class="filter-btn" data-col="email">▾</button></div></th>
+            <th data-col="client_name"><div class="th-inner">Client Name <button type="button" class="filter-btn" data-col="client_name">▾</button></div></th>
+            <th data-col="client_location"><div class="th-inner">Client Location <button type="button" class="filter-btn" data-col="client_location">▾</button></div></th>
+            <th data-col="client_address"><div class="th-inner">Client Address <button type="button" class="filter-btn" data-col="client_address">▾</button></div></th>
+            <th data-col="project_id"><div class="th-inner">Project ID <button type="button" class="filter-btn" data-col="project_id">▾</button></div></th>
+            <th data-col="project_name"><div class="th-inner">Project Name <button type="button" class="filter-btn" data-col="project_name">▾</button></div></th>
+            <th data-col="project_location"><div class="th-inner">Project Location <button type="button" class="filter-btn" data-col="project_location">▾</button></div></th>
+            <th data-col="project_address"><div class="th-inner">Project Address <button type="button" class="filter-btn" data-col="project_address">▾</button></div></th>
+            <th data-col="builder_name"><div class="th-inner">Builder Name <button type="button" class="filter-btn" data-col="builder_name">▾</button></div></th>
+            <th data-col="architect"><div class="th-inner">Architect <button type="button" class="filter-btn" data-col="architect">▾</button></div></th>
+            <th data-col="other_contact"><div class="th-inner">Other Contact <button type="button" class="filter-btn" data-col="other_contact">▾</button></div></th>
+            <th data-col="main_door_qty"><div class="th-inner">Main Door Qty <button type="button" class="filter-btn" data-col="main_door_qty">▾</button></div></th>
+            <th data-col="bedroom_door_qty"><div class="th-inner">Bedroom Door Qty <button type="button" class="filter-btn" data-col="bedroom_door_qty">▾</button></div></th>
+            <th data-col="toilet_door_qty"><div class="th-inner">Toilet Door Qty <button type="button" class="filter-btn" data-col="toilet_door_qty">▾</button></div></th>
+            <th data-col="remark"><div class="th-inner">Remark <button type="button" class="filter-btn" data-col="remark">▾</button></div></th>
+            <th data-col="remark_log"><div class="th-inner">Remark Log <button type="button" class="filter-btn" data-col="remark_log">▾</button></div></th>
+            <th data-col="assigned_to"><div class="th-inner">Owner <button type="button" class="filter-btn" data-col="assigned_to">▾</button></div></th>
+            <th data-col="approved"><div class="th-inner">Status <button type="button" class="filter-btn" data-col="approved">▾</button></div></th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -968,9 +968,13 @@ function openFilterPopup(col, btn) {
     renderClients(currentClients);
   });
 
-  const th = btn.parentElement;
-  th.style.position = "relative";
-  th.appendChild(popup);
+  document.body.appendChild(popup);
+  const rect = btn.getBoundingClientRect();
+  const popupWidth = Math.max(240, popup.offsetWidth || 240);
+  const left = Math.min(Math.max(8, rect.left), window.innerWidth - popupWidth - 8);
+  const top = Math.min(rect.bottom + 4, window.innerHeight - 330);
+  popup.style.left = `${left}px`;
+  popup.style.top = `${Math.max(8, top)}px`;
 }
 
 theadRow.addEventListener("click", (e) => {
@@ -987,6 +991,10 @@ document.addEventListener("click", (e) => {
     closeAllFilterPopups();
   }
 });
+
+window.addEventListener("scroll", () => {
+  if (openFilterCol) closeAllFilterPopups();
+}, true);
 
 /* ============ CLIENTS TABLE RENDER ============ */
 function renderRemarkLogHtml(c) {
